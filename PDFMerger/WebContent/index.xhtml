@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+	<h:head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+		<title>PDF Merger login</title>
+  
+		<!-- Bootstrap CSS -->
+		<link href="css/bootstrap.min.css" rel="stylesheet" />
+		<link href="css/loginStyle.css" rel="stylesheet" />
+	</h:head>
+
+	<h:body>
+		<div class="centro"><!-- para centralizar na página -->
+			<div class="container">		
+			<h1 class="welcome text-center">PDF Merger</h1>
+				<div class="card card-container">
+				<h2 class='login_title text-center'>Login</h2>
+				<hr />
+
+				<form class="form-signin">
+					<span id="reauth-email" class="reauth-email"></span>
+					<p class="input_title">Usuário</p>
+					<input type="text" id="inputEmail" class="login_box" placeholder="Digite o seu login" required="autofocus" />
+					<p class="input_title">Senha</p>
+					<input type="password" id="inputPassword" class="login_box" placeholder="******" />
+					<button class="btn btn-lg btn-primary" type="submit">Entrar</button>
+				</form><!-- /form -->
+				</div><!-- /card-container -->			
+			</div><!-- /container -->		
+		</div>	
+		<!-- jQuery (necessario para os plugins Javascript do Bootstrap) -->
+		<script src="js/jquery.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+	</h:body>
+
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+		<title>Template Bootstrap</title>
+  
+		<!-- Bootstrap CSS -->
+		<link href="css/bootstrap.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<link href="css/combo.css" rel="stylesheet" />
+		<link href="css/ckbox.css" rel="stylesheet" />
+		<link href="css/font-awesome.min.css" rel="stylesheet" />
+		
+		<script src="js/tabelaJs.js"></script>
+		<script src="js/combo.js"></script>
+	</h:head>
+
+	<h:body>
+		
+		<div class="container">
+			<div class="row">
+        		<!-- Formulario -->
+        		<div class="col-sm-12">
+            		<div class="panel panel-default cor-fundo">
+                		<div class="panel-body form-horizontal">
+                    		<div class="col-sm-12">
+								<legend>Cadastro de usuários</legend>
+							</div>
+					
+							<div class="form-group">
+                        		<label for="nome" class="col-sm-2 control-label">Nome</label>
+                        		<div class="col-sm-4">
+                            		<input type="text" class="form-control" id="nome" name="nome" />
+                        		</div>
+								<label for="perfil" class="col-sm-1 control-label">Perfil</label>
+                        		<div class="col-sm-3">
+									<a class="btn btn-default btn-select">
+										<input type="hidden" class="btn-select-input" id="" name="" value="" />
+										<span class="btn-select-value"></span>
+										<span class='btn-select-arrow glyphicon glyphicon-chevron-down'></span>
+										<ul>
+											<li>Administrador</li>
+											<li class="selected">Usuário comum</li>
+										</ul>
+									</a>
+								</div>
+                    		</div>
+                    
+							<div class="form-group">
+                        		<label for="email" class="col-sm-2 control-label">E-mail</label>
+                        		<div class="col-sm-4">
+                            		<input type="text" class="form-control" id="email" name="email" />
+                        		</div>
+								<div class="col-sm-1"></div>
+                        		<div class="checkbox checkbox-primary col-md-4">
+									<input id="checkbox1" type="checkbox" />
+									<label for="checkbox1">
+										Solicitar troca de senha no próximo login
+									</label>
+								</div>
+                    		</div>
+					
+							<div class="form-group">
+                        		<label for="login" class="col-sm-2 control-label">Login</label>
+                        		<div class="col-sm-3">
+                            		<input type="text" class="form-control" id="login" name="login" />
+                        		</div>
+								<div class="col-sm-2"></div>
+                        		<div class="checkbox checkbox-primary col-md-4">
+									<input id="checkbox2" type="checkbox" />
+									<label for="checkbox2">
+									Bloqueado
+									</label>
+								</div>
+                    		</div>
+					
+							<div class="form-group">
+                        		<label for="senha" class="col-sm-2 control-label">Senha</label>
+                        		<div class="col-sm-3">
+                            		<input type="text" class="form-control" id="senha" name="senha" />
+                        		</div>
+                    		</div>
+					
+							<div class="form-group">
+                        		<label for="confsenha" class="col-sm-2 control-label">Confirme sua senha</label>
+                        		<div class="col-sm-3">
+                            		<input type="text" class="form-control" id="confsenha" name="confsenha" />
+                        		</div>
+                    		</div>
+					
+							<div class="text-center">
+								<button Class="btn btn-default bot">Cancelar</button>
+								<button Class="btn btn-success bot">Salvar</button>
+							</div>
+					
+                		</div>
+            		</div>            
+        		</div> <!-- / Formulario -->
+        
+				<!-- Tabela -->
+				<div class="col-md-12">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">Usuários cadastrados
+								<div class="pull-right">
+									<span class="clickable filter" data-toggle="tooltip" title="" data-container="body" data-original-title="Clique para pesquisar">
+										<i class="glyphicon glyphicon-filter"></i>
+									</span>
+								</div>
+							</h3>
+						</div>
+						<div class="panel-body" style="display: none;">
+							<input class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Digite o texto aqui" type="text" />
+						</div>
+						<table class="table table-hover" id="dev-table">
+							<thead>
+								<tr>
+									<th class="col-md-3">Nome</th>
+									<th class="col-md-2">Login</th>
+									<th class="col-md-3">E-mail</th>
+									<th class="col-md-1">Perfil</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Administrador do sistema</td>
+									<td>admin</td>
+									<td>pdfmadmin@pdfm.com.br</td>
+									<td>Administrador</td>
+								</tr>
+							
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+<script type="text/javascript">
+		/**
+*   I don't recommend using this plugin on large tables, I just wrote it to make the demo useable. It will work fine for smaller tables 
+*   but will likely encounter performance issues on larger tables.
+*
+*		<input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Developers" />
+*		$(input-element).filterTable()
+*		
+*	The important attributes are 'data-action="filter"' and 'data-filters="#table-selector"'
+*/
+(function(){
+    'use strict';
+	var $ = jQuery;
+	$.fn.extend({
+		filterTable: function(){
+			return this.each(function(){
+				$(this).on('keyup', function(e){
+					$('.filterTable_no_results').remove();
+					var $this = $(this), 
+                        search = $this.val().toLowerCase(), 
+                        target = $this.attr('data-filters'), 
+                        $target = $(target), 
+                        $rows = $target.find('tbody tr');
+                        
+					if(search == '') {
+						$rows.show(); 
+					} else {
+						$rows.each(function(){
+							var $this = $(this);
+							$this.text().toLowerCase().indexOf(search) === -1 ? $this.hide() : $this.show();
+						})
+						if($target.find('tbody tr:visible').size() === 0) {
+							var col_count = $target.find('tr').first().find('td').size();
+							var no_results = $('<tr class="filterTable_no_results"><td colspan="'+col_count+'">No results found</td></tr>')
+							$target.find('tbody').append(no_results);
+						}
+					}
+				});
+			});
+		}
+	});
+	$('[data-action="filter"]').filterTable();
+})(jQuery);
+
+$(function(){
+    // attach table filter plugin to inputs
+	$('[data-action="filter"]').filterTable();
+	
+	$('.container').on('click', '.panel-heading span.filter', function(e){
+		var $this = $(this), 
+			$panel = $this.parents('.panel');
+		
+		$panel.find('.panel-body').slideToggle();
+		if($this.css('display') != 'none') {
+			$panel.find('.panel-body input').focus();
+		}
+	});
+	$('[data-toggle="tooltip"]').tooltip();
+})
+</script>
+
+		<!-- jQuery (necessario para os plugins Javascript do Bootstrap) -->
+		<script src="js/jquery.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+	</h:body>
+
+</html>
