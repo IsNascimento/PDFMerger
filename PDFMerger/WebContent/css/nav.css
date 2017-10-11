@@ -1,0 +1,28 @@
+.nav-top {
+	margin-bottom: 15px;
+	padding-left: 30px;
+}
+
+.bot {
+	min-width: 100px;
+}
+
+.icon-line {
+	margin-left: 15px;
+}
+
+.icon-nav {
+	color: gray;
+	margin-left: 20px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.nav-drop {
+	margin-top: 7px;
+	margin-right: 40px;
+}
+
+.selecionado {
+	color: #00cf90;
+}
