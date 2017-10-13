@@ -14,7 +14,7 @@ public static String criptografa(String string) {
 			BigInteger hash = new BigInteger(1,md.digest(string.getBytes()));
 			retorno = hash.toString(16);
 		} catch(Exception e) {
-			System.out.println("Erro ao ");
+			System.out.println("Erro ao criptografar senha");
 		}
 		return retorno;
 	}

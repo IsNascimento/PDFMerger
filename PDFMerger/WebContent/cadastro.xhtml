@@ -153,19 +153,20 @@
 									<th class="col-md-1"></th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<td>Administrador do sistema</td>
-									<td>admin</td>
-									<td>pdfmadmin@pdfm.com.br</td>
-									<td>Administrador</td>
-									<td class="text-center">
-										<i class="fa fa-pencil" aria-hidden="true"></i>
-										<i class="fa fa-trash-o icon-line" aria-hidden="true"></i>
-									</td>
-								</tr>
-							
-							</tbody>
+							<ui:repeat var="usuario" value="#{beanUsuario.usuarios}">
+								<tbody>
+									<tr>
+										<td>#{usuario.nome}</td>
+										<td>#{usuario.login}</td>
+										<td>#{usuario.email}</td>
+										<td>#{usuario.perfil}</td>
+										<td class="text-center">
+											<i class="fa fa-pencil" aria-hidden="true"></i>
+											<i class="fa fa-trash-o icon-line" aria-hidden="true"></i>
+										</td>
+									</tr>
+								</tbody>
+							</ui:repeat>
 						</table>
 					</div>
 				</div>
