@@ -57,72 +57,75 @@
                     		<div class="col-sm-12">
 								<legend>Cadastro de usuários</legend>
 							</div>
-					
-							<div class="form-group">
-                        		<label for="nome" class="col-sm-2 control-label">Nome</label>
-                        		<div class="col-sm-4">
-                            		<input type="text" class="form-control" id="nome" name="nome" />
-                        		</div>
-								<label for="perfil" class="col-sm-1 control-label">Perfil</label>
-                        		<div class="col-sm-3">
-									<a class="btn btn-default btn-select">
-										<input type="hidden" class="btn-select-input" id="" name="" value="" />
-										<span class="btn-select-value"></span>
-										<span class='btn-select-arrow glyphicon glyphicon-chevron-down'></span>
-										<ul>
-											<li>Administrador</li>
-											<li class="selected">Usuário comum</li>
-										</ul>
-									</a>
-								</div>
-                    		</div>
+							<h:form>
+							
+								<div class="form-group">
+                        			<label for="nome" class="col-sm-2 control-label">Nome</label>
+                        			<div class="col-sm-4">
+                            			<h:inputText styleClass="form-control" value="#{beanUsuario.nome}" />
+                        			</div>
+									<label for="perfil" class="col-sm-1 control-label">Perfil</label>
+                        			<div class="col-sm-3">
+										<a class="btn btn-default btn-select">
+											<h:inputText styleClass="btn-select-input" style="display:none" value="#{beanUsuario.perfil}" />
+											<span class="btn-select-value"></span>
+											<span class='btn-select-arrow glyphicon glyphicon-chevron-down'></span>
+											<ul>
+												<li>Administrador</li>
+												<li class="selected">Usuário comum</li>
+											</ul>
+										</a>
+									</div>
+                    			</div>
                     
-							<div class="form-group">
-                        		<label for="email" class="col-sm-2 control-label">E-mail</label>
-                        		<div class="col-sm-4">
-                            		<input type="text" class="form-control" id="email" name="email" />
-                        		</div>
-								<div class="col-sm-1"></div>
-                        		<div class="checkbox checkbox-primary col-md-4">
-									<input id="checkbox1" type="checkbox" />
-									<label for="checkbox1">
-										Solicitar troca de senha no próximo login
-									</label>
+								<div class="form-group">
+        	                		<label for="email" class="col-sm-2 control-label">E-mail</label>
+            	            		<div class="col-sm-4">
+                	            		<h:inputText styleClass="form-control" value="#{beanUsuario.email}" />
+                    	    		</div>
+									<div class="col-sm-1"></div>
+                        			<div class="checkbox checkbox-primary col-md-4">
+                        				<h:selectBooleanCheckbox id="checkbox1" value="#{beanUsuario.trocaSenha}" />
+										<label for="j_idt6:checkbox1">
+											Solicitar troca de senha no próximo login
+										</label>
+									</div>
+            	        		</div>
+					
+								<div class="form-group">
+	                        		<label for="login" class="col-sm-2 control-label">Login</label>
+	                        		<div class="col-sm-3">
+	                            		<h:inputText styleClass="form-control" value="#{beanUsuario.login}" />
+	                        		</div>
+									<div class="col-sm-2"></div>
+	                        		<div class="checkbox checkbox-primary col-md-4">
+	                        			<h:selectBooleanCheckbox id="checkbox2" value="#{beanUsuario.bloqueado}" />
+										<label for="j_idt6:checkbox2">
+										Bloqueado
+										</label>
+									</div>
+	                    		</div>
+					
+								<div class="form-group">
+    	                    		<label for="senha" class="col-sm-2 control-label">Senha</label>
+    	                    		<div class="col-sm-3">
+    	                        		<h:inputText styleClass="form-control" value="#{beanUsuario.senha}" />
+    	                    		</div>
+    	                		</div>
+						
+								<div class="form-group">
+    	                    		<label for="confsenha" class="col-sm-2 control-label">Confirme sua senha</label>
+    	                    		<div class="col-sm-3">
+    	                        		<h:inputText styleClass="form-control" value="#{beanUsuario.confirmaSenha}" />
+    	                    		</div>
+    	                		</div>
+					
+								<div class="text-center">
+									<button Class="btn btn-default bot">Cancelar</button>
+									
+									<h:commandButton styleClass="btn btn-success bot" action="#{beanUsuario.cadastrar}" value="Salvar" />
 								</div>
-                    		</div>
-					
-							<div class="form-group">
-                        		<label for="login" class="col-sm-2 control-label">Login</label>
-                        		<div class="col-sm-3">
-                            		<input type="text" class="form-control" id="login" name="login" />
-                        		</div>
-								<div class="col-sm-2"></div>
-                        		<div class="checkbox checkbox-primary col-md-4">
-									<input id="checkbox2" type="checkbox" />
-									<label for="checkbox2">
-									Bloqueado
-									</label>
-								</div>
-                    		</div>
-					
-							<div class="form-group">
-                        		<label for="senha" class="col-sm-2 control-label">Senha</label>
-                        		<div class="col-sm-3">
-                            		<input type="text" class="form-control" id="senha" name="senha" />
-                        		</div>
-                    		</div>
-					
-							<div class="form-group">
-                        		<label for="confsenha" class="col-sm-2 control-label">Confirme sua senha</label>
-                        		<div class="col-sm-3">
-                            		<input type="text" class="form-control" id="confsenha" name="confsenha" />
-                        		</div>
-                    		</div>
-					
-							<div class="text-center">
-								<button Class="btn btn-default bot">Cancelar</button>
-								<button Class="btn btn-success bot">Salvar</button>
-							</div>
+							</h:form>
 					
                 		</div>
             		</div>            

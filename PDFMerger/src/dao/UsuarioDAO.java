@@ -7,6 +7,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import model.Usuario;
+import utils.Criptografia;
 
 public class UsuarioDAO {
 	
@@ -18,7 +19,7 @@ public class UsuarioDAO {
 		u.setNome(nome);
 		u.setEmail(email);
 		u.setLogin(login);
-		u.setSenha(senha);
+		u.setSenha(Criptografia.criptografa(senha));
 		u.setPerfil(perfil);
 		u.setTrocaSenha(trocaSenha);
 		u.setBloqueado(blq);
@@ -28,9 +29,6 @@ public class UsuarioDAO {
 	
 	public void cadastrar(Usuario u) {
 		em.getTransaction().begin();
-		Query getId = em.createQuery("select max(u.id) from User u");
-		int id = getId.getFirstResult() + 1;
-		u.setIdUsuario(id);
 		em.persist(u);
 		em.getTransaction().commit();
 	}

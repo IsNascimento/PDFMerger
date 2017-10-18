@@ -8,6 +8,7 @@
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/pdf_merger"/>
 			<property name="javax.persistence.jdbc.user" value="pdf_m"/>
 			<property name="javax.persistence.jdbc.password" value="pdf.merger"/>
+			<property name="eclipselink.allow-zero-id" value="true"/>
 		</properties>
 	</persistence-unit>
 </persistence>

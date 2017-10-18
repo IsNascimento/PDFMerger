@@ -17,6 +17,7 @@ public class BeanUsuario {
 	private String email;
 	private String login;
 	private String senha;
+	private String confirmaSenha;
 	private String perfil;
 	private String trocaSenha;
 	private String bloqueado;
@@ -62,6 +63,14 @@ public class BeanUsuario {
 		this.senha = senha;
 	}
 	
+	public String getConfirmaSenha() {
+		return confirmaSenha;
+	}
+	
+	public void setConfirmaSenha(String senha) {
+		this.confirmaSenha = senha;
+	}
+	
 	public String getPerfil() {
 		return perfil;
 	}
@@ -75,7 +84,11 @@ public class BeanUsuario {
 	}
 	
 	public void setTrocaSenha(String trocaSenha) {
-		this.trocaSenha = trocaSenha;
+		if(trocaSenha.equals("true")) {
+			this.trocaSenha = "S";
+		} else {
+			this.trocaSenha = "N";
+		}
 	}
 	
 	public String getBloqueado() {
@@ -83,7 +96,11 @@ public class BeanUsuario {
 	}
 	
 	public void setBloqueado(String bloqueado) {
-		this.bloqueado = bloqueado;
+		if(bloqueado.equals("true")) {
+			this.bloqueado = "S";
+		} else {
+			this.bloqueado = "N";
+		}
 	}
 	
 	public List<Usuario> getUsuarios() {
@@ -91,7 +108,9 @@ public class BeanUsuario {
 	}
 	
 	public void cadastrar() {
-		usuarioDAO.cadastrar(nome, email, login, senha, perfil, trocaSenha, bloqueado);
+		if(senha.equals(confirmaSenha)) {
+			usuarioDAO.cadastrar(nome, email, login, senha, perfil, trocaSenha, bloqueado);
+		}
 	}
 
 }
