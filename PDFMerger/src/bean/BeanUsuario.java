@@ -2,11 +2,14 @@ package bean;
 
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 import dao.UsuarioDAO;
 import model.Usuario;
+import utils.Mensagem;
 
 @ManagedBean
 @RequestScoped
@@ -108,8 +111,16 @@ public class BeanUsuario {
 	}
 	
 	public void cadastrar() {
+		FacesContext contexto = FacesContext.getCurrentInstance();
 		if(senha.equals(confirmaSenha)) {
-			usuarioDAO.cadastrar(nome, email, login, senha, perfil, trocaSenha, bloqueado);
+			try {
+				usuarioDAO.cadastrar(nome, email, login, senha, perfil, trocaSenha, bloqueado);
+				contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, Mensagem.SUCESSO, ""));
+			} catch(Exception e) {
+				contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_NO_SISTEMA));
+			}
+		} else {
+			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.SENHA_NAO_CONFERE));
 		}
 	}
 

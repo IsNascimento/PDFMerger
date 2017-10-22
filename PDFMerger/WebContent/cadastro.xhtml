@@ -5,6 +5,7 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	
 
 <h:head>
 		<meta charset="utf-8" />
@@ -18,10 +19,12 @@
 		<link href="css/combo.css" rel="stylesheet" />
 		<link href="css/ckbox.css" rel="stylesheet" />
 		<link href="css/nav.css" rel="stylesheet" />
+		<link href="css/mensagem.css" rel="stylesheet" />
 		<link href="css/font-awesome.min.css" rel="stylesheet" />
 		
 		<script src="js/TabelaJs.js"></script>
 		<script src="js/combo.js"></script>
+		<script src="js/limpaForm.js"></script>
 	</h:head>
 
 	<h:body>
@@ -50,19 +53,24 @@
 		
 		<div class="container topo">
 			<div class="row">
+			
+			
+			
         		<!-- Formulario -->
         		<div class="col-sm-12">
             		<div class="panel panel-default cor-fundo">
                 		<div class="panel-body form-horizontal">
+                			<div class="mensagem col-sm-12">
+                			<h:messages showDetail="true" errorClass="alert alert-danger" fatalClass="alert alert-info" infoClass="alert alert-success" warnClass="alert alert-warning" />
+                    		</div>
                     		<div class="col-sm-12">
 								<legend>Cadastro de usuários</legend>
 							</div>
-							<h:form>
-							
+							<h:form  class="limpa">
 								<div class="form-group">
                         			<label for="nome" class="col-sm-2 control-label">Nome</label>
                         			<div class="col-sm-4">
-                            			<h:inputText styleClass="form-control" value="#{beanUsuario.nome}" />
+                            			<h:inputText styleClass="form-control limpaCampo" value="#{beanUsuario.nome}" />
                         			</div>
 									<label for="perfil" class="col-sm-1 control-label">Perfil</label>
                         			<div class="col-sm-3">
@@ -81,12 +89,12 @@
 								<div class="form-group">
         	                		<label for="email" class="col-sm-2 control-label">E-mail</label>
             	            		<div class="col-sm-4">
-                	            		<h:inputText styleClass="form-control" value="#{beanUsuario.email}" />
+                	            		<h:inputText styleClass="form-control limpaCampo" value="#{beanUsuario.email}" />
                     	    		</div>
 									<div class="col-sm-1"></div>
                         			<div class="checkbox checkbox-primary col-md-4">
-                        				<h:selectBooleanCheckbox id="checkbox1" value="#{beanUsuario.trocaSenha}" />
-										<label for="j_idt6:checkbox1">
+                        				<h:selectBooleanCheckbox styleClass="limpaCkBox" id="checkbox1" value="#{beanUsuario.trocaSenha}" />
+										<label for="j_idt8:checkbox1">
 											Solicitar troca de senha no próximo login
 										</label>
 									</div>
@@ -95,12 +103,12 @@
 								<div class="form-group">
 	                        		<label for="login" class="col-sm-2 control-label">Login</label>
 	                        		<div class="col-sm-3">
-	                            		<h:inputText styleClass="form-control" value="#{beanUsuario.login}" />
+	                            		<h:inputText styleClass="form-control limpaCampo" value="#{beanUsuario.login}" />
 	                        		</div>
 									<div class="col-sm-2"></div>
 	                        		<div class="checkbox checkbox-primary col-md-4">
 	                        			<h:selectBooleanCheckbox id="checkbox2" value="#{beanUsuario.bloqueado}" />
-										<label for="j_idt6:checkbox2">
+										<label for="j_idt8:checkbox2">
 										Bloqueado
 										</label>
 									</div>
@@ -109,21 +117,20 @@
 								<div class="form-group">
     	                    		<label for="senha" class="col-sm-2 control-label">Senha</label>
     	                    		<div class="col-sm-3">
-    	                        		<h:inputText styleClass="form-control" value="#{beanUsuario.senha}" />
+    	                        		<h:inputSecret styleClass="form-control limpaCampo" value="#{beanUsuario.senha}" />
     	                    		</div>
     	                		</div>
 						
 								<div class="form-group">
     	                    		<label for="confsenha" class="col-sm-2 control-label">Confirme sua senha</label>
     	                    		<div class="col-sm-3">
-    	                        		<h:inputText styleClass="form-control" value="#{beanUsuario.confirmaSenha}" />
+    	                        		<h:inputSecret styleClass="form-control limpaCampo" value="#{beanUsuario.confirmaSenha}" />
     	                    		</div>
     	                		</div>
 					
 								<div class="text-center">
-									<button Class="btn btn-default bot">Cancelar</button>
-									
-									<h:commandButton styleClass="btn btn-success bot" action="#{beanUsuario.cadastrar}" value="Salvar" />
+									<button type="reset" Class="btn btn-default bot">Cancelar</button>
+									<h:commandButton styleClass="btn btn-success bot botLine" action="#{beanUsuario.cadastrar}" value="Salvar" />
 								</div>
 							</h:form>
 					
