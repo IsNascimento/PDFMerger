@@ -38,5 +38,11 @@ public class UsuarioDAO {
 		Query busca = em.createQuery("SELECT u FROM Usuario u");
 		return busca.getResultList();
 	}
+	
+	public void exclui(Usuario u) {
+		em.getTransaction().begin();
+		em.remove(u);
+		em.getTransaction().commit();
+	}
 
 }

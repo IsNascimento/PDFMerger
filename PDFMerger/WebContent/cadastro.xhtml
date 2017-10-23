@@ -171,8 +171,16 @@
 										<td>#{usuario.email}</td>
 										<td>#{usuario.perfil}</td>
 										<td class="text-center">
-											<i class="fa fa-pencil" aria-hidden="true"></i>
-											<i class="fa fa-trash-o icon-line" aria-hidden="true"></i>
+										<h:form>
+											<h:commandLink action="#{beanUsuario.editar}">
+												<i class="fa fa-pencil" aria-hidden="true"></i>
+												<f:setPropertyActionListener value="#{usuario}" target="#{beanUsuario.usuario}" />
+											</h:commandLink>
+											<h:commandLink action="#{beanUsuario.excluir}">
+												<i class="fa fa-trash-o icon-line" aria-hidden="true"></i>
+												<f:setPropertyActionListener value="#{usuario}" target="#{beanUsuario.usuario}" />
+											</h:commandLink>
+											</h:form>
 										</td>
 									</tr>
 								</tbody>

@@ -24,8 +24,17 @@ public class BeanUsuario {
 	private String perfil;
 	private String trocaSenha;
 	private String bloqueado;
+	private Usuario usuario;
 	private UsuarioDAO usuarioDAO = new UsuarioDAO();
 	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario u) {
+		this.usuario = u;
+	}
+
 	public int getIdUsuario() {
 		return idUsuario;
 	}
@@ -121,6 +130,20 @@ public class BeanUsuario {
 			}
 		} else {
 			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.SENHA_NAO_CONFERE));
+		}
+	}
+	
+	public void editar() {
+		
+	}
+	
+	public void excluir() {
+		FacesContext contexto = FacesContext.getCurrentInstance();
+		try {
+			usuarioDAO.exclui(usuario);
+			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, Mensagem.SUCESSO, ""));
+		} catch (Exception e) {
+			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_NO_SISTEMA));
 		}
 	}
 
