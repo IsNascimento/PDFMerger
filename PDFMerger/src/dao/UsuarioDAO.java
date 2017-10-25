@@ -33,15 +33,40 @@ public class UsuarioDAO {
 		em.getTransaction().commit();
 	}
 	
+	public void editar(int id, String nome, String email, String login, String senha, String perfil, String trocaSenha, String blq) {
+		
+		Usuario u = new Usuario();
+		u.setIdUsuario(id);
+		u.setNome(nome);
+		u.setEmail(email);
+		u.setLogin(login);
+		u.setSenha(Criptografia.criptografa(senha));
+		u.setPerfil(perfil);
+		u.setTrocaSenha(trocaSenha);
+		u.setBloqueado(blq);
+		
+		this.editar(u);
+	}
+	
+	public void editar (Usuario u) {
+		em.getTransaction().begin();
+		em.merge(u);
+		em.getTransaction().commit();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Usuario> listar() {
 		Query busca = em.createQuery("SELECT u FROM Usuario u");
 		return busca.getResultList();
 	}
 	
-	public void exclui(Usuario u) {
+	public Usuario busca(int id) {
+		return em.find(Usuario.class, id);
+	}
+	
+	public void exclui(int id) {
 		em.getTransaction().begin();
-		em.remove(u);
+		em.remove(this.busca(id));
 		em.getTransaction().commit();
 	}
 

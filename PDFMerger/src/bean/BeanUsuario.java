@@ -21,7 +21,7 @@ public class BeanUsuario {
 	private String login;
 	private String senha;
 	private String confirmaSenha;
-	private String perfil;
+	private String perfil = "Usuário comum";
 	private String trocaSenha;
 	private String bloqueado;
 	private Usuario usuario;
@@ -96,11 +96,7 @@ public class BeanUsuario {
 	}
 	
 	public void setTrocaSenha(String trocaSenha) {
-		if(trocaSenha.equals("true")) {
-			this.trocaSenha = "S";
-		} else {
-			this.trocaSenha = "N";
-		}
+		this.trocaSenha = trocaSenha;
 	}
 	
 	public String getBloqueado() {
@@ -108,39 +104,77 @@ public class BeanUsuario {
 	}
 	
 	public void setBloqueado(String bloqueado) {
-		if(bloqueado.equals("true")) {
-			this.bloqueado = "S";
-		} else {
-			this.bloqueado = "N";
-		}
+		this.bloqueado = bloqueado;
 	}
 	
 	public List<Usuario> getUsuarios() {
 		return usuarioDAO.listar();
 	}
 	
+	public void resetaBean() {
+		this.idUsuario = 0;
+		this.nome = null;
+		this.email = null;
+		this.login = null;
+		this.senha = null;
+		this.confirmaSenha = null;
+		this.perfil = "Usuário comum";
+		this.trocaSenha = null;
+		this.bloqueado = null;
+	}
+	
 	public void cadastrar() {
 		FacesContext contexto = FacesContext.getCurrentInstance();
-		if(senha.equals(confirmaSenha)) {
-			try {
-				usuarioDAO.cadastrar(nome, email, login, senha, perfil, trocaSenha, bloqueado);
-				contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, Mensagem.SUCESSO, ""));
-			} catch(Exception e) {
-				contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_NO_SISTEMA));
+		if(this.idUsuario == 0) {
+			if(senha.equals(confirmaSenha)) {
+				try {
+					usuarioDAO.cadastrar(nome, email, login, senha, perfil, trocaSenha, bloqueado);
+					this.resetaBean();
+					contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, Mensagem.SUCESSO, ""));
+				} catch(Exception e) {
+					contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_NO_SISTEMA));
+				}
+			} else {
+				contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.SENHA_NAO_CONFERE));
 			}
 		} else {
-			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.SENHA_NAO_CONFERE));
+			if(senha.equals(confirmaSenha)) {
+				try {
+					usuarioDAO.editar(idUsuario, nome, email, login, senha, perfil, trocaSenha, bloqueado);
+					this.resetaBean();
+					contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, Mensagem.SUCESSO, ""));
+				} catch(Exception e) {
+					contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_NO_SISTEMA));
+				}
+			} else {
+				contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.SENHA_NAO_CONFERE));
+			}
 		}
 	}
 	
-	public void editar() {
-		
+	public void editar(int id) {
+		this.usuario = usuarioDAO.busca(id);
+		this.setIdUsuario(usuario.getIdUsuario());
+		this.setNome(usuario.getNome());
+		this.setEmail(usuario.getEmail());
+		this.setLogin(usuario.getLogin());
+		this.setPerfil(usuario.getPerfil());
+		if(usuario.getTrocaSenha().equals("S")) {
+			this.trocaSenha = "true";
+		} else {
+			this.trocaSenha = "false";
+		}
+		if(usuario.getBloqueado().equals("S")) {
+			this.bloqueado = "true";
+		} else {
+			this.bloqueado = "false";
+		}
 	}
 	
-	public void excluir() {
+	public void excluir(int id) {
 		FacesContext contexto = FacesContext.getCurrentInstance();
 		try {
-			usuarioDAO.exclui(usuario);
+			usuarioDAO.exclui(id);
 			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, Mensagem.SUCESSO, ""));
 		} catch (Exception e) {
 			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_NO_SISTEMA));

@@ -74,7 +74,11 @@ public class Usuario {
 	}
 	
 	public void setTrocaSenha(String trocaSenha) {
-		this.trocaSenha = trocaSenha;
+		if(trocaSenha.equals("true") || trocaSenha.equals("S")) {
+			this.trocaSenha = "S";
+		} else {
+			this.trocaSenha = "N";
+		}
 	}
 	
 	public String getBloqueado() {
@@ -82,6 +86,10 @@ public class Usuario {
 	}
 	
 	public void setBloqueado(String bloqueado) {
-		this.bloqueado = bloqueado;
+		if(bloqueado.equals("true") || bloqueado.equals("S")) {
+			this.bloqueado = "S";
+		} else {
+			this.bloqueado = "N";
+		}
 	}
 }
