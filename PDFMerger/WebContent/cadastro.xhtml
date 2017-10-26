@@ -60,7 +60,7 @@
                 			<h:messages showDetail="true" errorClass="alert alert-danger" fatalClass="alert alert-info" infoClass="alert alert-success" warnClass="alert alert-warning" />
                     		</div>
                     		<div class="col-sm-12">
-								<legend>Cadastro de usuários</legend>
+								<h:outputText styleClass="titulo" value="#{beanUsuario.titulo}" /> 
 							</div>
 							<h:form  class="limpa">
 								<div class="form-group">
@@ -125,8 +125,8 @@
     	                		</div>
 					
 								<div class="text-center">
-									<h:commandButton styleClass="btn btn-default bot" action="#{beanUsuario.resetaBean}" value="Limpar" />
-									<h:commandButton styleClass="btn btn-success bot botLine" action="#{beanUsuario.cadastrar}" value="Salvar" />
+									<h:commandButton styleClass="btn btn-default bot" action="#{beanUsuario.resetaBean}" value="#{beanUsuario.limpaCancela}" />
+									<h:commandButton styleClass="btn btn-success bot botLine" action="#{beanUsuario.cadastrar}" value="#{beanUsuario.cadastraAtualiza}" />
 								</div>
 							</h:form>
 					

@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -68,6 +69,39 @@ public class UsuarioDAO {
 		em.getTransaction().begin();
 		em.remove(this.busca(id));
 		em.getTransaction().commit();
+	}
+	
+	public String verificaLoginEmail(String login, String email, int id) {
+		List<Usuario> lista = this.listar();
+		Usuario u;
+		Iterator i = lista.iterator();
+		while(i.hasNext()) {
+			u = (Usuario)i.next();
+			if(u.getLogin().equals(login)) {
+				if(id == 0) {
+					return "loginJaExiste";
+				} else {
+					if(id == u.getIdUsuario()) {
+						return "";
+					} else {
+						return "loginJaExiste";
+					}
+				}
+			} else {
+				if(u.getEmail().equals(email)) {
+					if(id == 0) {
+						return "emailJaExiste";
+					} else {
+						if(id == u.getIdUsuario()) {
+							return "";
+						} else {
+							return "emailJaExiste";
+						}
+					}
+				}
+			}
+		}
+		return "";
 	}
 
 }

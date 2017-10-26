@@ -22,10 +22,14 @@ public class BeanUsuario {
 	private String senha;
 	private String confirmaSenha;
 	private String perfil = "Usuário comum";
-	private String trocaSenha;
+	private String trocaSenha = "true";
 	private String bloqueado;
 	private Usuario usuario;
 	private UsuarioDAO usuarioDAO = new UsuarioDAO();
+	
+	private String titulo = "Cadastrar usuário";
+	private String limpaCancela = "Limpar";
+	private String cadastraAtualiza = "Cadastrar";
 	
 	public Usuario getUsuario() {
 		return usuario;
@@ -111,6 +115,25 @@ public class BeanUsuario {
 		return usuarioDAO.listar();
 	}
 	
+	public String getTitulo() {
+		return titulo;
+	}
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+	public String getLimpaCancela() {
+		return limpaCancela;
+	}
+	public void setLimpaCancela(String limaCancela) {
+		this.limpaCancela = limaCancela;
+	}
+	public String getCadastraAtualiza() {
+		return cadastraAtualiza;
+	}
+	public void setCadastraAtualiza(String cadastraAtualiza) {
+		this.cadastraAtualiza = cadastraAtualiza;
+	}
+	
 	public void resetaBean() {
 		this.idUsuario = 0;
 		this.nome = null;
@@ -119,19 +142,56 @@ public class BeanUsuario {
 		this.senha = null;
 		this.confirmaSenha = null;
 		this.perfil = "Usuário comum";
-		this.trocaSenha = null;
+		this.trocaSenha = "true";
 		this.bloqueado = null;
 	}
 	
 	public void cadastrar() {
 		FacesContext contexto = FacesContext.getCurrentInstance();
-		if(this.idUsuario == 0) {
+		if(senha.equals(confirmaSenha)) {
+			String validaLoginEmail = usuarioDAO.verificaLoginEmail(login, email, idUsuario);
+			if(validaLoginEmail.equals("loginJaExiste")) {
+				contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.LOGIN_JA_EXISTE));
+			} else 
+				if(validaLoginEmail.equals("emailJaExiste")) {
+					contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.EMAIL_JA_EXISTE));
+				} else 
+					if(this.idUsuario == 0) {
+						try {
+							usuarioDAO.cadastrar(nome, email, login, senha, perfil, trocaSenha, bloqueado);
+							this.resetaBean();
+							contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, Mensagem.SUCESSO, ""));
+						} catch(Exception e) {
+							e.printStackTrace();
+							contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_NO_SISTEMA));
+						}
+					} else
+						if(senha.equals(confirmaSenha)) {
+							try {
+								usuarioDAO.editar(idUsuario, nome, email, login, senha, perfil, trocaSenha, bloqueado);
+								this.resetaBean();
+								contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, Mensagem.SUCESSO, ""));
+							} catch(Exception e) {
+								e.printStackTrace();
+								this.editar(this.idUsuario);
+								contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_NO_SISTEMA));
+							}
+						} 
+		} else {
+			if(this.idUsuario != 0) {
+				this.editar(this.idUsuario);
+			}
+			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.SENHA_NAO_CONFERE));
+			}
+		
+		/*if(this.idUsuario == 0) {
 			if(senha.equals(confirmaSenha)) {
 				try {
 					usuarioDAO.cadastrar(nome, email, login, senha, perfil, trocaSenha, bloqueado);
 					this.resetaBean();
 					contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, Mensagem.SUCESSO, ""));
 				} catch(Exception e) {
+					e.printStackTrace();
 					contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_NO_SISTEMA));
 				}
 			} else {
@@ -144,16 +204,21 @@ public class BeanUsuario {
 					this.resetaBean();
 					contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, Mensagem.SUCESSO, ""));
 				} catch(Exception e) {
+					e.printStackTrace();
 					contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_NO_SISTEMA));
 				}
 			} else {
 				contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.SENHA_NAO_CONFERE));
 			}
-		}
+		}*/
 	}
 	
 	public void editar(int id) {
 		this.usuario = usuarioDAO.busca(id);
+		//BeanCadastro cadastro = (BeanCadastro)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("BeanCadastro");
+		this.setTitulo("Editar usuário");
+		this.setLimpaCancela("Cancelar");
+		this.setCadastraAtualiza("Atualizar");
 		this.setIdUsuario(usuario.getIdUsuario());
 		this.setNome(usuario.getNome());
 		this.setEmail(usuario.getEmail());
