@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+	<h:head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+		<title>PDF Merger login</title>
+  
+		<!-- Bootstrap CSS -->
+		<link href="css/bootstrap.min.css" rel="stylesheet" />
+		<link href="css/loginStyle.css" rel="stylesheet" />
+	</h:head>
+
+	<h:body>
+		<div class="centro"><!-- para centralizar na página -->
+			<div class="container">		
+			<h1 class="welcome text-center">PDF Merger</h1>
+				<div class="card card-container row">
+				<h2 class='login_title text-center'>Login</h2>
+				<hr />
+
+				<h:form class="form-signin">
+					<span id="reauth-email" class="reauth-email"></span>
+					<h:messages showDetail="true" errorClass="alert alert-danger" fatalClass="alert alert-info" infoClass="alert alert-success" warnClass="alert alert-warning" />
+					<p class="input_title">Usuário</p>
+						<h:inputText styleClass="login_box inputEmail" value="#{beanLogin.login}">
+							<f:passThroughAttribute name="placeholder" value="Digite o seu login" />
+							<f:passThroughAttribute name="autofocus" value="" />
+							<f:passThroughAttribute name="required" value="" />
+						</h:inputText>
+					<p class="input_title">Senha</p>
+						<h:inputSecret styleClass="login_box inputPassword" value="#{beanLogin.senha}" required="true">
+							<f:passThroughAttribute name="placeholder" value="***********" />
+							<f:passThroughAttribute name="required" value="" />
+						</h:inputSecret>
+						<h:commandButton styleClass="btn btn-lg btn-primary col-md-12" value="Entrar" action="#{beanLogin.entrar}" />
+				</h:form><!-- /form -->
+				</div><!-- /card-container -->			
+			</div><!-- /container -->		
+		</div>	
+		<!-- jQuery (necessario para os plugins Javascript do Bootstrap) -->
+		<script src="js/jquery.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+	</h:body>
+
+</html>

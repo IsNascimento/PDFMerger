@@ -11,4 +11,6 @@ public class Mensagem {
 	public static final String ERRO_NO_SISTEMA= "Ocorreu um erro no sistema";
 	public static final String LOGIN_JA_EXISTE= "O login informado já está cadastrado";
 	public static final String EMAIL_JA_EXISTE= "O e-mail informado já está cadastrado";
+	public static final String EUSUARIO_NAO_CADASTRADO= "Usuário não cadastrado";
+	public static final String LOGIN_BLOQUEADO= "Este login está bloqueado";
 }

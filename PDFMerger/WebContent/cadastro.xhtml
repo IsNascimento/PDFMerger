@@ -4,8 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
 	
 
 <h:head>
@@ -32,15 +31,18 @@
 			<div class="container">
 				<div class="row">	
 					<div class="col-sm-12">
-						<a href="#"><i class="selecionado fa fa-user-plus icon-nav fa-1x" aria-hidden="true"></i></a>
-						<a href="#"><i class="fa fa-files-o icon-nav fa-1x" aria-hidden="true"></i></a>
-						<a href="#"><i class="fa fa-cogs icon-nav fa-1x" aria-hidden="true"></i></a>
+						<a href=""><i class="selecionado fa fa-user-plus icon-nav fa-1x" aria-hidden="true"></i></a>
+						<a href=""><i class="fa fa-files-o icon-nav fa-1x" aria-hidden="true"></i></a>
+						<a href=""><i class="fa fa-cogs icon-nav fa-1x" aria-hidden="true"></i></a>
 						<ul class="navbar-nav navbar-right nav-drop">
 							<li class="dropdown">
-								<a href="#" class=" dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administrador do sistema <span class="caret"></span></a>
-								<ul class="dropdown-menu">
-					
-								<li><a href="#">Sair</a></li>
+								<a href="#" class=" dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">#{usuarioLogado.nome} <span class="caret"></span></a>
+								<ul class="dropdown-menu ">
+									<li>
+										<h:form>
+											<h:commandButton styleClass="btn btn-xs pull-right" style="margin-right: 10px" value="Sair" action="#{beanLogin.sair}" />
+										</h:form>
+									</li>
 								</ul>
 							</li>
 						</ul>
@@ -67,17 +69,15 @@
 									<h:inputHidden value="#{beanUsuario.idUsuario}" />
                         			<label for="nome" class="col-sm-2 control-label">Nome</label>
                         			<div class="col-sm-4">
-                            			<h:inputText styleClass="form-control limpaCampo" value="#{beanUsuario.nome}" />
+                            			<h:inputText styleClass="form-control limpaCampo" value="#{beanUsuario.nome}">
+                            				<f:passThroughAttribute name="required" value="" />
+                            			</h:inputText>
                         			</div>
 									<label for="perfil" class="col-sm-1 control-label">Perfil</label>
                         			<div class="col-sm-3">
-                                    	<!-- <select class="form-control">
-                                        	<option value="Administrador">Administrador</option>
-                                        	<option value="Administrador" selected="selected">Usuário comum</option>
-                                    	</select> -->
                                     	<h:selectOneMenu styleClass="form-control" value="#{beanUsuario.perfil}" biding="#{beanUsuario.perfil}">
-                                    		<f:selectItem itemLabel="Administrador" itemValue="Administrador" />
-                                    		<f:selectItem itemLabel="Usuário comum" itemValue="Usuário comum" />
+                                   			<f:selectItem itemLabel="Administrador" itemValue="Administrador" />
+                                   			<f:selectItem itemLabel="Usuário comum" itemValue="Usuário comum" />
                                     	</h:selectOneMenu>
 									</div>
                     			</div>
@@ -85,12 +85,14 @@
 								<div class="form-group">
         	                		<label for="email" class="col-sm-2 control-label">E-mail</label>
             	            		<div class="col-sm-4">
-                	            		<h:inputText styleClass="form-control limpaCampo" value="#{beanUsuario.email}" />
+                	            		<h:inputText styleClass="form-control limpaCampo" value="#{beanUsuario.email}">
+                            				<f:passThroughAttribute name="required" value="" />
+                            			</h:inputText>
                     	    		</div>
 									<div class="col-sm-1"></div>
                         			<div class="checkbox checkbox-primary col-md-4">
                         				<h:selectBooleanCheckbox styleClass="limpaCkBox" id="checkbox1" value="#{beanUsuario.trocaSenha}" />
-										<label for="j_idt8:checkbox1">
+										<label for="j_idt13:checkbox1">
 											Solicitar troca de senha no próximo login
 										</label>
 									</div>
@@ -99,31 +101,41 @@
 								<div class="form-group">
 	                        		<label for="login" class="col-sm-2 control-label">Login</label>
 	                        		<div class="col-sm-3">
-	                            		<h:inputText styleClass="form-control limpaCampo" value="#{beanUsuario.login}" />
+	                            		<h:inputText styleClass="form-control limpaCampo" value="#{beanUsuario.login}">
+	                            			<f:passThroughAttribute name="autocomplete" value="off" />
+                            				<f:passThroughAttribute name="required" value="" />
+    	                        		</h:inputText>
 	                        		</div>
 									<div class="col-sm-2"></div>
 	                        		<div class="checkbox checkbox-primary col-md-4">
 	                        			<h:selectBooleanCheckbox id="checkbox2" value="#{beanUsuario.bloqueado}" />
-										<label for="j_idt8:checkbox2">
+										<label for="j_idt13:checkbox2">
 										Bloqueado
 										</label>
 									</div>
 	                    		</div>
+	                    		
+	                    		<input type="text" style="display:none" />      <!-- Para o firefox não preencher automaticamente -->
+	                    		<input type="password" style="display:none" />  <!-- Para o firefox não preencher automaticamente -->
 					
 								<div class="form-group">
     	                    		<label for="senha" class="col-sm-2 control-label">Senha</label>
     	                    		<div class="col-sm-3">
-    	                        		<h:inputSecret styleClass="form-control limpaCampo" value="#{beanUsuario.senha}" />
+    	                    			<h:inputSecret styleClass="form-control limpaCampo" value="#{beanUsuario.senha}">
+    	                    			<f:passThroughAttribute name="autocomplete" value="off" />
+    	                    			</h:inputSecret>
     	                    		</div>
     	                		</div>
-						
+    	                		
 								<div class="form-group">
     	                    		<label for="confsenha" class="col-sm-2 control-label">Confirme sua senha</label>
     	                    		<div class="col-sm-3">
-    	                        		<h:inputSecret styleClass="form-control limpaCampo" value="#{beanUsuario.confirmaSenha}" />
+    	                    			<h:inputSecret styleClass="form-control limpaCampo" value="#{beanUsuario.confirmaSenha}" >
+    	                        			<f:passThroughAttribute name="autocomplete" value="off" />
+    	                        		</h:inputSecret>
     	                    		</div>
     	                		</div>
-					
+    	                		
 								<div class="text-center">
 									<h:commandButton styleClass="btn btn-default bot" action="#{beanUsuario.resetaBean}" value="#{beanUsuario.limpaCancela}" />
 									<h:commandButton styleClass="btn btn-success bot botLine" action="#{beanUsuario.cadastrar}" value="#{beanUsuario.cadastraAtualiza}" />

@@ -7,7 +7,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
+import dao.PerfilDAO;
 import dao.UsuarioDAO;
+import model.Perfil;
 import model.Usuario;
 import utils.Mensagem;
 
@@ -26,6 +28,7 @@ public class BeanUsuario {
 	private String bloqueado;
 	private Usuario usuario;
 	private UsuarioDAO usuarioDAO = new UsuarioDAO();
+	private PerfilDAO perfilDAO = new PerfilDAO();
 	
 	private String titulo = "Cadastrar usuário";
 	private String limpaCancela = "Limpar";
@@ -130,8 +133,13 @@ public class BeanUsuario {
 	public String getCadastraAtualiza() {
 		return cadastraAtualiza;
 	}
+	
 	public void setCadastraAtualiza(String cadastraAtualiza) {
 		this.cadastraAtualiza = cadastraAtualiza;
+	}
+	
+	public List<Perfil> getPerfis() {
+		return perfilDAO.listar();
 	}
 	
 	public void resetaBean() {
@@ -183,34 +191,6 @@ public class BeanUsuario {
 			}
 			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.SENHA_NAO_CONFERE));
 			}
-		
-		/*if(this.idUsuario == 0) {
-			if(senha.equals(confirmaSenha)) {
-				try {
-					usuarioDAO.cadastrar(nome, email, login, senha, perfil, trocaSenha, bloqueado);
-					this.resetaBean();
-					contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, Mensagem.SUCESSO, ""));
-				} catch(Exception e) {
-					e.printStackTrace();
-					contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_NO_SISTEMA));
-				}
-			} else {
-				contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.SENHA_NAO_CONFERE));
-			}
-		} else {
-			if(senha.equals(confirmaSenha)) {
-				try {
-					usuarioDAO.editar(idUsuario, nome, email, login, senha, perfil, trocaSenha, bloqueado);
-					this.resetaBean();
-					contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, Mensagem.SUCESSO, ""));
-				} catch(Exception e) {
-					e.printStackTrace();
-					contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_NO_SISTEMA));
-				}
-			} else {
-				contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.SENHA_NAO_CONFERE));
-			}
-		}*/
 	}
 	
 	public void editar(int id) {

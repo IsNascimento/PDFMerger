@@ -65,6 +65,19 @@ public class UsuarioDAO {
 		return em.find(Usuario.class, id);
 	}
 	
+	public Usuario buscaPorLogin(String login) {
+		List<Usuario> lista = this.listar();
+		Usuario u;
+		Iterator i = lista.iterator();
+		while(i.hasNext()) {
+			u = (Usuario)i.next();
+			if(u.getLogin().equals(login)) {
+				return u;
+			}
+		}
+		return null;
+	}
+	
 	public void exclui(int id) {
 		em.getTransaction().begin();
 		em.remove(this.busca(id));
