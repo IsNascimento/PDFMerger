@@ -78,6 +78,19 @@ public class UsuarioDAO {
 		return null;
 	}
 	
+	public String getSenha(int id) {
+		List<Usuario> lista = this.listar();
+		Usuario u;
+		Iterator i = lista.iterator();
+		while(i.hasNext()) {
+			u = (Usuario)i.next();
+			if(u.getIdUsuario() == id) {
+				return u.getSenha();
+			}
+		}
+		return null;
+	}
+	
 	public void exclui(int id) {
 		em.getTransaction().begin();
 		em.remove(this.busca(id));

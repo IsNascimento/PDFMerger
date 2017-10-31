@@ -7,10 +7,15 @@ public class Mensagem {
 	public static final String INFO = "";
 	public static final String ALERTA = "Alerta!";
 	
-	public static final String SENHA_NAO_CONFERE = "Os campos senha e confirme sua senha não conferem";
-	public static final String ERRO_NO_SISTEMA= "Ocorreu um erro no sistema";
-	public static final String LOGIN_JA_EXISTE= "O login informado já está cadastrado";
-	public static final String EMAIL_JA_EXISTE= "O e-mail informado já está cadastrado";
-	public static final String EUSUARIO_NAO_CADASTRADO= "Usuário não cadastrado";
-	public static final String LOGIN_BLOQUEADO= "Este login está bloqueado";
+	public static final String SENHA_NAO_CONFERE = "Os campos senha e confirme sua senha não conferem.";
+	public static final String ERRO_NO_SISTEMA = "Ocorreu um erro no sistema.";
+	public static final String LOGIN_JA_EXISTE = "O login informado já está cadastrado.";
+	public static final String EMAIL_JA_EXISTE = "O e-mail informado já está cadastrado.";
+	public static final String USUARIO_NAO_CADASTRADO = "Usuário ou senha incorreta.";
+	public static final String LOGIN_BLOQUEADO = "Este login está bloqueado.";
+	public static final String SENHA_INCORRETA = "Usuário ou senha incorreta.";
+	public static final String NOME_INVALIDO = "O campo nome não pode conter números ou caracteres especiais.";
+	public static final String EMAIL_INVALIDO = "O email informado é inválido. ";
+	public static final String LOGIN_INVALIDO = "O login informado é inválido.";
+	public static final String SENHA_INVALIDA = "A senha deve conter no mínimo seis caracteres.";
 }

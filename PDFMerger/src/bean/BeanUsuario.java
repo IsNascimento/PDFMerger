@@ -5,7 +5,6 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import dao.PerfilDAO;
@@ -14,9 +13,10 @@ import model.Perfil;
 import model.Usuario;
 import utils.Criptografia;
 import utils.Mensagem;
+import utils.Validador;
 
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class BeanUsuario {
 	
 	private int idUsuario;
@@ -158,44 +158,84 @@ public class BeanUsuario {
 	
 	public void cadastrar() {
 		FacesContext contexto = FacesContext.getCurrentInstance();
-		if(senha.equals(confirmaSenha)) {
-			String validaLoginEmail = usuarioDAO.verificaLoginEmail(login, email, idUsuario);
-			if(validaLoginEmail.equals("loginJaExiste")) {
-				contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.LOGIN_JA_EXISTE));
-			} else 
-				if(validaLoginEmail.equals("emailJaExiste")) {
-					contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.EMAIL_JA_EXISTE));
-				} else 
-					if(this.idUsuario == 0) {
-						try {
-							usuarioDAO.cadastrar(nome, email, login, senha, perfil, trocaSenha, bloqueado);
-							this.resetaBean();
-							contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, Mensagem.SUCESSO, ""));
-						} catch(Exception e) {
-							e.printStackTrace();
-							contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_NO_SISTEMA));
+		if (senha.equals(confirmaSenha)) {
+			if (Validador.nome(nome)) {
+				if (Validador.email(email)) {
+					if (Validador.login(login)) {
+						String validaLoginEmail = usuarioDAO.verificaLoginEmail(login, email, idUsuario);
+						if (validaLoginEmail.equals("loginJaExiste")) {
+							contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.LOGIN_JA_EXISTE));
+							if (this.idUsuario != 0) {
+								this.editar(this.idUsuario);
+							}
+						} else if (validaLoginEmail.equals("emailJaExiste")) {
+							contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.EMAIL_JA_EXISTE));
+							if (this.idUsuario != 0) {
+								this.editar(this.idUsuario);
+							}
+						} else if (this.idUsuario == 0) {//Novo cadastro
+							if(Validador.senha(senha)) {
+								try {
+									usuarioDAO.cadastrar(nome, email, login, senha, perfil, trocaSenha, bloqueado);
+									this.resetaBean();
+									contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, Mensagem.SUCESSO, ""));
+								} catch (Exception e) {
+									e.printStackTrace();
+									contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_NO_SISTEMA));
+								}
+							
+							} else {
+								contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.SENHA_INVALIDA));
+							}
+							
+						} else {//Atualiza cadastro
+							if (senha.equals("")) {
+								senha = usuarioDAO.getSenha(idUsuario);
+							} else {
+								if(Validador.senha(senha)) {
+									senha = Criptografia.criptografa(senha);
+								} else {
+									contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.SENHA_INVALIDA));
+									this.editar(this.idUsuario);
+									return;
+								}
+							}
+							try {
+								usuarioDAO.editar(idUsuario, nome, email, login, senha, perfil, trocaSenha, bloqueado);
+								this.resetaBean();
+								contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, Mensagem.SUCESSO, ""));
+							} catch (Exception e) {
+								e.printStackTrace();
+								this.editar(this.idUsuario);
+								contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_NO_SISTEMA));
+								this.editar(this.idUsuario);
+							}
 						}
-					} else
-						if(senha.equals("")) {
-							senha = this.usuario.getSenha();
-						} else {
-							senha = Criptografia.criptografa(senha);
-						}
-						try {
-							usuarioDAO.editar(idUsuario, nome, email, login, senha, perfil, trocaSenha, bloqueado);
-							this.resetaBean();
-							contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, Mensagem.SUCESSO, ""));
-						} catch(Exception e) {
-							e.printStackTrace();
+					} else {
+						contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.LOGIN_INVALIDO));
+						if (this.idUsuario != 0) {
 							this.editar(this.idUsuario);
-							contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_NO_SISTEMA));
 						}
+					}
+				} else {
+					contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.EMAIL_INVALIDO));
+					if (this.idUsuario != 0) {
+						this.editar(this.idUsuario);
+					}
+				}
+			} else {
+				contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.NOME_INVALIDO));
+				if (this.idUsuario != 0) {
+					this.editar(this.idUsuario);
+				}
+			}
 		} else {
-			if(this.idUsuario != 0) {
+			if (this.idUsuario != 0) {
 				this.editar(this.idUsuario);
 			}
-			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.SENHA_NAO_CONFERE));
-			}
+			contexto.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.SENHA_NAO_CONFERE));
+		}
 	}
 	
 	public void editar(int id) {

@@ -16,6 +16,7 @@
 		<!-- Bootstrap CSS -->
 		<link href="css/bootstrap.min.css" rel="stylesheet" />
 		<link href="css/loginStyle.css" rel="stylesheet" />
+		<link href="css/mensagem.css" rel="stylesheet" />
 	</h:head>
 
 	<h:body>
@@ -28,7 +29,9 @@
 
 				<h:form class="form-signin">
 					<span id="reauth-email" class="reauth-email"></span>
-					<h:messages showDetail="true" errorClass="alert alert-danger" fatalClass="alert alert-info" infoClass="alert alert-success" warnClass="alert alert-warning" />
+					<div class="mensagem">
+						<h:messages showDetail="true" errorClass="alert alert-danger" fatalClass="alert alert-info" infoClass="alert alert-success" warnClass="alert alert-warning" />
+					</div>
 					<p class="input_title">Usuário</p>
 						<h:inputText styleClass="login_box inputEmail" value="#{beanLogin.login}">
 							<f:passThroughAttribute name="placeholder" value="Digite o seu login" />
