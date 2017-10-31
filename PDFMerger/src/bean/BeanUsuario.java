@@ -5,16 +5,18 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import dao.PerfilDAO;
 import dao.UsuarioDAO;
 import model.Perfil;
 import model.Usuario;
+import utils.Criptografia;
 import utils.Mensagem;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class BeanUsuario {
 	
 	private int idUsuario;
@@ -174,17 +176,20 @@ public class BeanUsuario {
 							contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_NO_SISTEMA));
 						}
 					} else
-						if(senha.equals(confirmaSenha)) {
-							try {
-								usuarioDAO.editar(idUsuario, nome, email, login, senha, perfil, trocaSenha, bloqueado);
-								this.resetaBean();
-								contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, Mensagem.SUCESSO, ""));
-							} catch(Exception e) {
-								e.printStackTrace();
-								this.editar(this.idUsuario);
-								contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_NO_SISTEMA));
-							}
-						} 
+						if(senha.equals("")) {
+							senha = this.usuario.getSenha();
+						} else {
+							senha = Criptografia.criptografa(senha);
+						}
+						try {
+							usuarioDAO.editar(idUsuario, nome, email, login, senha, perfil, trocaSenha, bloqueado);
+							this.resetaBean();
+							contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, Mensagem.SUCESSO, ""));
+						} catch(Exception e) {
+							e.printStackTrace();
+							this.editar(this.idUsuario);
+							contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_NO_SISTEMA));
+						}
 		} else {
 			if(this.idUsuario != 0) {
 				this.editar(this.idUsuario);

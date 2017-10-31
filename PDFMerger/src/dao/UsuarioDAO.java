@@ -41,7 +41,7 @@ public class UsuarioDAO {
 		u.setNome(nome);
 		u.setEmail(email);
 		u.setLogin(login);
-		u.setSenha(Criptografia.criptografa(senha));
+		u.setSenha(senha);
 		u.setPerfil(perfil);
 		u.setTrocaSenha(trocaSenha);
 		u.setBloqueado(blq);
