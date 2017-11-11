@@ -1,0 +1,5 @@
+Os diretórios padrões a serem criados para a aplicação são os seguintes
+
+1. Diretório padrão dos arquivos: C:/apache-tomcat-8.5.16/PDFMerger
+2. Diretório padrão de arquivos públicos: C:/apache-tomcat-8.5.16/PDFMerger/Publico
+3. Diretório padrão de arquivos do Administrador do sistema: C:/apache-tomcat-8.5.16/PDFMerger/1

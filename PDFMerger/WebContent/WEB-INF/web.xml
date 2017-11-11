@@ -41,6 +41,7 @@
   	<web-resource-collection>
   		<web-resource-name>wrcol</web-resource-name>
   		<url-pattern>/faces/cadastro.xhtml</url-pattern>
+  		<url-pattern>/faces/arquivos.xhtml</url-pattern>
   	</web-resource-collection>
   	<auth-constraint>
   		<role-name>*</role-name>

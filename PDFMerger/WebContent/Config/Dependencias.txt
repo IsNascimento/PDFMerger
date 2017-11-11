@@ -1,0 +1,6 @@
+Para que a aplicação funcione corretamente algumas coisas são necessárias.
+
+1. Criação correta do banco de dados postgres segundo o arquivo PDFMerger_SQL
+2. Insersão do usuário administrador do sistema diretamente no banco de dados
+3. Configuração correta do arquivo server.xml
+4. Criação manual dos diretórios padrões de arquivos segundo o arquivo ConfDir

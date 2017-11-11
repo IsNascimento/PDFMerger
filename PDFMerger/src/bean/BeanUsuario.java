@@ -1,5 +1,6 @@
 package bean;
 
+import java.io.File;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -177,6 +178,8 @@ public class BeanUsuario {
 							if(Validador.senha(senha)) {
 								try {
 									usuarioDAO.cadastrar(nome, email, login, senha, perfil, trocaSenha, bloqueado);
+									File diretorioDoUsuario = new File("C:/apache-tomcat-8.5.16/PDFMerger/" + usuarioDAO.buscaPorLogin(login).getIdUsuario());
+									diretorioDoUsuario.mkdir();
 									this.resetaBean();
 									contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, Mensagem.SUCESSO, ""));
 								} catch (Exception e) {

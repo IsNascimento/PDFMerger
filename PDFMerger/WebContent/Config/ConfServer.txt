@@ -1,0 +1,17 @@
+Configurações necessárias no arquivo server.xml
+
+1. Configuração para autenticação de usuário:
+<Realm className="org.apache.catalina.realm.LockOutRealm">
+	<Realm allRolesMode="authOnly"
+		className="org.apache.catalina.realm.JDBCRealm"
+		connectionName="pdf_m" connectionPassword="pdf.merger"
+		connectionURL="jdbc:postgresql://localhost:5432/pdf_merger"
+		driverName="org.postgresql.Driver"
+		userCredCol="senha"
+		userNameCol="login"
+		userTable="usuario"/>
+</Realm>
+
+2. Configuração para disponibizar os arquivos da aplicação:
+<Host appBase="webapps" autoDeploy="true" name="localhost" unpackWARs="true">
+	<Context docBase="C:/apache-tomcat-8.5.16/PDFMerger" path="/arquivos" />

@@ -18,4 +18,8 @@ public class Mensagem {
 	public static final String EMAIL_INVALIDO = "O email informado é inválido. ";
 	public static final String LOGIN_INVALIDO = "O login informado é inválido.";
 	public static final String SENHA_INVALIDA = "A senha deve conter no mínimo seis caracteres.";
+	
+	public static final String NENHUM_ARQUIVO_SELECIONADO = "Nenhum arquivo selecionado.";
+	public static final String ERRO_AO_MANIPULAR_ARQUIVO = "Ocorreu um ao enviar o arquivo para o servidor.";
+	public static final String ARQUIVO_JA_EXISTE = "Já existe um arquivo com o mesmo nome.";
 }

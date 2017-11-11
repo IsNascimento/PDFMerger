@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+	<h:head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+		<title>PDF Merger</title>
+  
+		<!-- Bootstrap CSS -->
+		<link href="css/bootstrap.min.css" rel="stylesheet" />
+		<link href="css/combo.css" rel="stylesheet" />
+		<link href="css/ckbox.css" rel="stylesheet" />
+		<link href="css/font-awesome.min.css" rel="stylesheet" />
+		<link href="css/nav.css" rel="stylesheet" />
+		<link href="css/upload.css" rel="stylesheet" />
+		<link href="css/estilos.css" rel="stylesheet" />
+		<link href="css/mensagem.css" rel="stylesheet" />
+		
+		<script src="js/TabelaJs.js"></script>
+	</h:head>
+
+	<h:body>
+	
+		<div class="navbar-inverse nav-top navbar-fixed-top">
+			<div class="container">
+				<div class="row">	
+					<div class="col-sm-12">
+						<a href="cadastro.xhtml"><i class="fa fa-user-plus icon-nav fa-1x" aria-hidden="true"></i></a>
+						<a href=""><i class="fa fa-files-o icon-nav fa-1x" aria-hidden="true"></i></a>
+						<a href="arquivos.xhtml"><i class="selecionado fa fa-cogs icon-nav fa-1x" aria-hidden="true"></i></a>
+						<ul class="navbar-nav navbar-right nav-drop">
+							<li class="dropdown">
+								<a href="#" class=" dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">#{usuarioLogado.nome} <span class="caret"></span></a>
+								<ul class="dropdown-menu ">
+									<li>
+										<h:form>
+											<h:commandButton styleClass="btn btn-xs pull-right" style="margin-right: 10px" value="Sair" action="#{beanLogin.sair}" />
+										</h:form>
+									</li>
+								</ul>
+							</li>
+						</ul>
+			
+					</div>
+				</div>
+ 	 		</div>
+		</div>
+
+		<div class="container topo">
+			<div class="row">
+        		<!-- Formulario -->
+        		<div class="col-sm-6">
+            		<div class="panel panel-default cor-fundo">
+                		<div class="panel-body form-horizontal">
+                    		<div class="col-sm-12">
+								<legend>Gerenciar arquivos</legend>
+							</div>
+					
+							<h:form>
+								<div class="form-group">
+									<h:inputHidden value="#{beanArquivo.idArquivo}" />
+            			            <label for="arquivo" class="col-sm-3 control-label">Arquivo</label>
+                    			    <div class="col-sm-8">
+                        			    <h:inputText styleClass="form-control" value="#{beanArquivo.nome}">
+                        			    	<f:passThroughAttribute name="required" value="" />
+                        			    </h:inputText>
+                       				 </div>
+                   				</div>
+								<div class="form-group">
+                       	 			<label for="acesso" class="col-sm-3 control-label">Acesso</label>
+                       				<div class="col-sm-5">
+                       					<h:selectOneMenu styleClass="form-control" value="#{beanArquivo.acesso}">
+                       						<f:selectItem itemLabel="Restrito" itemValue="R" />
+                       						<f:selectItem itemLabel="Público" itemValue="P" />
+                       					</h:selectOneMenu>
+                        			</div>
+                    			</div>
+					
+								<div class="text-center">
+									<button type="reset" Class="btn btn-default bot">Cancelar</button>
+									<h:commandButton styleClass="btn btn-success bot botLine" action="#{beanArquivo.atualizar}" value="Salvar" />
+								</div>
+					
+							</h:form>
+			         	</div>
+			         	
+						<div class="panel-body form-horizontal">
+				           	<div class="col-sm-12">
+								<legend>Realizar upload</legend>
+							</div>
+							
+							<div class="mensagem col-sm-12 form-group">
+								<h:messages showDetail="true" errorClass="alert alert-danger" fatalClass="alert alert-info" infoClass="alert alert-success" warnClass="alert alert-warning" />
+							</div>
+				
+							<h:form enctype="multipart/form-data">
+								<div class="col-sm-1"></div>
+								<div class="form-group col-sm-11">
+									<div class="input-group">
+										<span class="input-group-btn">
+											<span class="btn btn-default btn-file">
+												Buscar...
+												<h:inputFile id="inputFile" value="#{beanArquivo.arquivo}" />
+											</span>
+										</span>
+										<input id="urlname" type="text" class="form-control" readonly="true" placeholder="Nenhum arquivo selecionado"/>
+									</div>
+    				          	</div>
+    				          	
+								<div class="form-group">
+           				 			<label for="senha" class="col-sm-3 control-label">Acesso</label>
+           						    <div class="col-sm-5">
+           						    	<h:selectOneMenu styleClass="form-control" value="#{beanArquivo.arquivoLogico.acesso}">
+                       						<f:selectItem itemLabel="Restrito" itemValue="R" />
+                       						<f:selectItem itemLabel="Público" itemValue="P" />
+                       					</h:selectOneMenu>
+					                </div>
+									<div class="col-sm-3">
+										<h:commandButton styleClass="btn btn-success bot pull-right" action="#{beanArquivo.carregaArquivo}" value="Salvar" />
+									</div>
+            			        </div>	
+							</h:form>
+           			     </div>
+          			</div>            
+      			</div> <!-- / Formulario -->
+        
+				<!-- Tabela -->
+				<div class="col-md-6">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">Arquivos disponíveis
+								<div class="pull-right">
+									<span class="clickable filter" data-toggle="tooltip" title="" data-container="body" data-original-title="Clique para pesquisar">
+										<i class="glyphicon glyphicon-filter"></i>
+									</span>
+								</div>
+							</h3>
+						</div>
+						<div class="panel-body" style="display: none;">
+							<input class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Digite o texto aqui" type="text" />
+						</div>
+						
+						<table class="table table-hover" id="dev-table">
+							<thead>
+								<tr>
+									<th class="col-md-9">Arquivo</th>
+									<th class="col-md-3 text-center"></th>
+								</tr>
+							</thead>
+							<ui:repeat var="arquivo" value="#{beanArquivo.arquivos}">
+								<tbody>
+									<tr>
+										<td>#{arquivo.nome}</td>
+										<td class="text-center">
+											<i class="fa fa-pencil" aria-hidden="true"></i>
+											<i class="fa fa-trash-o icon-line" aria-hidden="true"></i>
+											<i class="fa fa-users icon-line" aria-hidden="true"></i>
+										</td>
+									</tr>
+								</tbody>
+							</ui:repeat>
+						</table>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+
+
+<script type="text/javascript">  
+	document.getElementById("j_idt24:inputFile").onchange = function () { 
+	document.getElementById("urlname").value = this.value.split(/(\\|\/)/g).pop();
+	};
+</script> 
+
+<script type="text/javascript">
+		/**
+*   I don't recommend using this plugin on large tables, I just wrote it to make the demo useable. It will work fine for smaller tables 
+*   but will likely encounter performance issues on larger tables.
+*
+*		<input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Developers" />
+*		$(input-element).filterTable()
+*		
+*	The important attributes are 'data-action="filter"' and 'data-filters="#table-selector"'
+*/
+(function(){
+    'use strict';
+	var $ = jQuery;
+	$.fn.extend({
+		filterTable: function(){
+			return this.each(function(){
+				$(this).on('keyup', function(e){
+					$('.filterTable_no_results').remove();
+					var $this = $(this), 
+                        search = $this.val().toLowerCase(), 
+                        target = $this.attr('data-filters'), 
+                        $target = $(target), 
+                        $rows = $target.find('tbody tr');
+                        
+					if(search == '') {
+						$rows.show(); 
+					} else {
+						$rows.each(function(){
+							var $this = $(this);
+							$this.text().toLowerCase().indexOf(search) === -1 ? $this.hide() : $this.show();
+						})
+						if($target.find('tbody tr:visible').size() === 0) {
+							var col_count = $target.find('tr').first().find('td').size();
+							var no_results = $('<tr class="filterTable_no_results"><td colspan="'+col_count+'">No results found</td></tr>')
+							$target.find('tbody').append(no_results);
+						}
+					}
+				});
+			});
+		}
+	});
+	$('[data-action="filter"]').filterTable();
+})(jQuery);
+
+$(function(){
+    // attach table filter plugin to inputs
+	$('[data-action="filter"]').filterTable();
+	
+	$('.container').on('click', '.panel-heading span.filter', function(e){
+		var $this = $(this), 
+			$panel = $this.parents('.panel');
+		
+		$panel.find('.panel-body').slideToggle();
+		if($this.css('display') != 'none') {
+			$panel.find('.panel-body input').focus();
+		}
+	});
+	$('[data-toggle="tooltip"]').tooltip();
+})
+</script>
+
+		<!-- jQuery (necessario para os plugins Javascript do Bootstrap) -->
+		<script src="js/jquery.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+	</h:body>
+
+</html>

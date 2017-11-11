@@ -1,9 +1,11 @@
 package utils;
 
+import model.Arquivo;
+
 public class Validador {
 	
 	public static boolean nome(String nome) {
-		if (nome != null && nome.replaceAll("[A-Z]|[a-z]|ç|ã|õ|é|ê| ", "").isEmpty()) {
+		if (nome != null && nome.replaceAll("[A-Z]|[a-z]|á|ç|ã|õ|é|ê| ", "").isEmpty()) {
             return true;
         } else {
             return false;
@@ -33,5 +35,5 @@ public class Validador {
 			return false;
 		}
 	}
-
+	
 }
