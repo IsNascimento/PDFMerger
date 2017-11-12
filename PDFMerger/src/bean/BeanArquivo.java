@@ -87,7 +87,8 @@ public class BeanArquivo {
 	}
 	
 	public List<Arquivo> getArquivos() {
-		return arquivoDAO.listar();
+		Usuario usuarioLogado = (Usuario)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
+		return arquivoDAO.listaParaUsuario(usuarioLogado.getIdUsuario());
 	}
 	
 	public void carregaArquivo() {
@@ -101,7 +102,7 @@ public class BeanArquivo {
 			} else {
 				arquivoLogico.setCaminho("C:/apache-tomcat-8.5.16/PDFMerger/Publico/" + arquivoLogico.getNome());
 			}
-			if(arquivoDAO.verificaCaminhoDoArquivo(arquivoLogico.getCaminho())) {
+			if(arquivoDAO.verificaCaminhoDoArquivo(arquivoLogico.getCaminho(), arquivoLogico.getIdUsuario())) {
 				Files.copy(arquivo.getInputStream(), Paths.get(arquivoLogico.getCaminho()));
 				arquivoDAO.cadastrar(arquivoLogico);
 				contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, Mensagem.SUCESSO, ""));

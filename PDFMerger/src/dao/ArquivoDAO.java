@@ -55,6 +55,11 @@ public void editar(String nome, int idUsuario, String caminho, String acesso) {
 		return busca.getResultList();
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Arquivo> listaParaUsuario(int idUsuario) {
+		Query busca = em.createQuery("SELECT a FROM Arquivo a WHERE a.acesso = 'P' OR a.idUsuario = " + idUsuario + " ORDER BY a.nome ASC");
+		return busca.getResultList();
+	}
 	
 	public Arquivo busca(int id) {
 		return em.find(Arquivo.class, id);
@@ -66,8 +71,8 @@ public void editar(String nome, int idUsuario, String caminho, String acesso) {
 		em.getTransaction().commit();
 	}
 	
-	public boolean verificaCaminhoDoArquivo(String caminho) {
-		List<Arquivo> lista = this.listar();
+	public boolean verificaCaminhoDoArquivo(String caminho, int idUsuario) {
+		List<Arquivo> lista = this.listaParaUsuario(idUsuario);
 		Arquivo a;
 		Iterator i = lista.iterator();
 		while(i.hasNext()) {

@@ -160,8 +160,10 @@
 										<td>#{arquivo.nome}</td>
 										<td class="text-center">
 											<i class="fa fa-pencil" aria-hidden="true"></i>
+											<i class="fa fa-cloud-download icon-line" aria-hidden="true"></i>
 											<i class="fa fa-trash-o icon-line" aria-hidden="true"></i>
-											<i class="fa fa-users icon-line" aria-hidden="true"></i>
+											<h:outputLabel rendered="#{arquivo.getAcesso().equals('R')}" styleClass="fa fa-user icon-line-u" />
+											<h:outputLabel rendered="#{arquivo.getAcesso().equals('P')}" styleClass="fa fa-users icon-line" />
 										</td>
 									</tr>
 								</tbody>
