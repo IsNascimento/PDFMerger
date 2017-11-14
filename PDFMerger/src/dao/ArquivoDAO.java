@@ -31,9 +31,10 @@ public class ArquivoDAO {
 		em.getTransaction().commit();
 	}
 	
-public void editar(String nome, int idUsuario, String caminho, String acesso) {
+public void editar(int idArquivo, String nome, int idUsuario, String caminho, String acesso) {
 		
 		Arquivo arquivo = new Arquivo();
+		arquivo.setIdArquivo(idArquivo);
 		arquivo.setNome(nome);
 		arquivo.setIdUsuario(idUsuario);
 		arquivo.setCaminho(caminho);
@@ -45,7 +46,7 @@ public void editar(String nome, int idUsuario, String caminho, String acesso) {
 	
 	public void editar(Arquivo arquivo) {
 		em.getTransaction().begin();
-		em.persist(arquivo);
+		em.merge(arquivo);
 		em.getTransaction().commit();
 	}
 	

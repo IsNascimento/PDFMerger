@@ -62,8 +62,12 @@
                     		<div class="col-sm-12">
 								<legend>Gerenciar arquivos</legend>
 							</div>
+							
+							<div class="mensagem col-sm-12 form-group">
+								<h:messages for="editar" showDetail="true" errorClass="alert alert-danger" fatalClass="alert alert-info" infoClass="alert alert-success" warnClass="alert alert-warning" />
+							</div>
 					
-							<h:form>
+							<h:form id="editar">
 								<div class="form-group">
 									<h:inputHidden value="#{beanArquivo.idArquivo}" />
             			            <label for="arquivo" class="col-sm-3 control-label">Arquivo</label>
@@ -84,8 +88,8 @@
                     			</div>
 					
 								<div class="text-center">
-									<button type="reset" Class="btn btn-default bot">Cancelar</button>
-									<h:commandButton styleClass="btn btn-success bot botLine" action="#{beanArquivo.atualizar}" value="Salvar" />
+									<h:commandButton styleClass="btn btn-default bot" action="#{beanArquivo.resetaBean}" value="Cancelar" />
+									<h:commandButton styleClass="btn btn-success bot botLine" action="#{beanArquivo.atualizar}" value="Atualizar" />
 								</div>
 					
 							</h:form>
@@ -97,17 +101,19 @@
 							</div>
 							
 							<div class="mensagem col-sm-12 form-group">
-								<h:messages showDetail="true" errorClass="alert alert-danger" fatalClass="alert alert-info" infoClass="alert alert-success" warnClass="alert alert-warning" />
+								<h:messages for="inputFile" showDetail="true" errorClass="alert alert-danger" fatalClass="alert alert-info" infoClass="alert alert-success" warnClass="alert alert-warning" />
 							</div>
 				
-							<h:form enctype="multipart/form-data">
+							<h:form id="up" enctype="multipart/form-data">
 								<div class="col-sm-1"></div>
 								<div class="form-group col-sm-11">
 									<div class="input-group">
 										<span class="input-group-btn">
 											<span class="btn btn-default btn-file">
 												Buscar...
-												<h:inputFile id="inputFile" value="#{beanArquivo.arquivo}" />
+												<h:inputFile id="inputFile" value="#{beanArquivo.arquivo}">
+													<f:passThroughAttribute name="accept" value="application/pdf" />
+												</h:inputFile>
 											</span>
 										</span>
 										<input id="urlname" type="text" class="form-control" readonly="true" placeholder="Nenhum arquivo selecionado"/>
@@ -159,11 +165,19 @@
 									<tr>
 										<td>#{arquivo.nome}</td>
 										<td class="text-center">
-											<i class="fa fa-pencil" aria-hidden="true"></i>
-											<i class="fa fa-cloud-download icon-line" aria-hidden="true"></i>
-											<i class="fa fa-trash-o icon-line" aria-hidden="true"></i>
-											<h:outputLabel rendered="#{arquivo.getAcesso().equals('R')}" styleClass="fa fa-user icon-line-u" />
-											<h:outputLabel rendered="#{arquivo.getAcesso().equals('P')}" styleClass="fa fa-users icon-line" />
+											<h:form>
+												<h:commandLink action="#{beanArquivo.editar(arquivo.idArquivo)}">
+													<i class="fa fa-pencil" aria-hidden="true"></i>
+												</h:commandLink>
+												<h:commandLink action="#{beanArquivo.download(arquivo.nome, arquivo.caminho)}">
+													<i class="fa fa-cloud-download icon-line" aria-hidden="true"></i>
+												</h:commandLink>
+												<h:commandLink action="#{beanArquivo.excluir(arquivo.idArquivo)}">
+													<i class="fa fa-trash-o icon-line" aria-hidden="true"></i>
+												</h:commandLink>
+												<h:outputLabel rendered="#{arquivo.getAcesso().equals('R')}" styleClass="fa fa-user icon-line-u" />
+												<h:outputLabel rendered="#{arquivo.getAcesso().equals('P')}" styleClass="fa fa-users icon-line" />
+											</h:form>
 										</td>
 									</tr>
 								</tbody>
@@ -177,7 +191,7 @@
 
 
 <script type="text/javascript">  
-	document.getElementById("j_idt24:inputFile").onchange = function () { 
+	document.getElementById("up:inputFile").onchange = function () { 
 	document.getElementById("urlname").value = this.value.split(/(\\|\/)/g).pop();
 	};
 </script> 

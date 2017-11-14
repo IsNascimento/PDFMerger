@@ -20,6 +20,6 @@ public class Mensagem {
 	public static final String SENHA_INVALIDA = "A senha deve conter no mínimo seis caracteres.";
 	
 	public static final String NENHUM_ARQUIVO_SELECIONADO = "Nenhum arquivo selecionado.";
-	public static final String ERRO_AO_MANIPULAR_ARQUIVO = "Ocorreu um ao enviar o arquivo para o servidor.";
+	public static final String ERRO_AO_MANIPULAR_ARQUIVO = "Ocorreu um ao manipular o arquivo no servidor.";
 	public static final String ARQUIVO_JA_EXISTE = "Já existe um arquivo com o mesmo nome.";
 }
