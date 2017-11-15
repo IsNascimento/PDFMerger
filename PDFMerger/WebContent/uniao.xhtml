@@ -5,7 +5,7 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
-
+	
 	<h:head>
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -15,26 +15,24 @@
   
 		<!-- Bootstrap CSS -->
 		<link href="css/bootstrap.min.css" rel="stylesheet" />
-		<link href="css/combo.css" rel="stylesheet" />
-		<link href="css/ckbox.css" rel="stylesheet" />
-		<link href="css/font-awesome.min.css" rel="stylesheet" />
-		<link href="css/nav.css" rel="stylesheet" />
-		<link href="css/upload.css" rel="stylesheet" />
 		<link href="css/estilos.css" rel="stylesheet" />
+		<link href="css/ckbox.css" rel="stylesheet" />
+		<link href="css/nav.css" rel="stylesheet" />
 		<link href="css/mensagem.css" rel="stylesheet" />
+		<link href="css/font-awesome.min.css" rel="stylesheet" />
 		
 		<script src="js/TabelaJs.js"></script>
 	</h:head>
 
 	<h:body>
-	
+		
 		<div class="navbar-inverse nav-top navbar-fixed-top">
 			<div class="container">
 				<div class="row">	
 					<div class="col-sm-12">
 						<a href="cadastro.xhtml"><i class="fa fa-user-plus icon-nav fa-1x" aria-hidden="true"></i></a>
-						<a href="uniao.xhtml"><i class="fa fa-files-o icon-nav fa-1x" aria-hidden="true"></i></a>
-						<a href="arquivos.xhtml"><i class="selecionado fa fa-cogs icon-nav fa-1x" aria-hidden="true"></i></a>
+						<a href="uniao.xhtml"><i class="selecionado fa fa-files-o icon-nav fa-1x" aria-hidden="true"></i></a>
+						<a href="arquivos.xhtml"><i class="fa fa-cogs icon-nav fa-1x" aria-hidden="true"></i></a>
 						<ul class="navbar-nav navbar-right nav-drop">
 							<li class="dropdown">
 								<a href="#" class=" dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">#{usuarioLogado.nome} <span class="caret"></span></a>
@@ -52,92 +50,65 @@
 				</div>
  	 		</div>
 		</div>
-
+		
 		<div class="container topo">
 			<div class="row">
         		<!-- Formulario -->
-        		<div class="col-sm-6">
+        		<div class="col-sm-12">
             		<div class="panel panel-default cor-fundo">
                 		<div class="panel-body form-horizontal">
+                			<div class="mensagem col-sm-12">
+                				<h:messages showDetail="true" errorClass="alert alert-danger" fatalClass="alert alert-info" infoClass="alert alert-success" warnClass="alert alert-warning" />
+                    		</div>
                     		<div class="col-sm-12">
-								<legend>Gerenciar arquivos</legend>
+                    			<legend>União de arquivos</legend>
 							</div>
-							
-							<div class="mensagem col-sm-12 form-group">
-								<h:messages for="editar" showDetail="true" errorClass="alert alert-danger" fatalClass="alert alert-info" infoClass="alert alert-success" warnClass="alert alert-warning" />
-							</div>
-					
-							<h:form id="editar">
+							<h:form id="pdf"  class="limpa">
+								
 								<div class="form-group">
-									<h:inputHidden value="#{beanArquivo.idArquivo}" />
-            			            <label for="arquivo" class="col-sm-3 control-label">Arquivo</label>
-                    			    <div class="col-sm-8">
-                        			    <h:inputText styleClass="form-control" value="#{beanArquivo.nome}">
-                        			    	<f:passThroughAttribute name="required" value="" />
-                        			    </h:inputText>
-                       				 </div>
-                   				</div>
-								<div class="form-group">
-                       	 			<label for="acesso" class="col-sm-3 control-label">Acesso</label>
-                       				<div class="col-sm-5">
-                       					<h:selectOneMenu styleClass="form-control" value="#{beanArquivo.acesso}">
-                       						<f:selectItem itemLabel="Restrito" itemValue="R" />
-                       						<f:selectItem itemLabel="Público" itemValue="P" />
-                       					</h:selectOneMenu>
+                        			<label for="nome" class="col-sm-2 control-label">Nome do arquivo</label>
+                        			<div class="col-sm-4">
+                            			<h:inputText styleClass="form-control limpaCampo" value="#{beanUniao.nomeArquivoGerado}">
+                            				<f:passThroughAttribute name="required" value="" />
+                            			</h:inputText>
                         			</div>
+                        			<div class="col-sm-1"></div>
+                        			<div class="checkbox checkbox-primary col-md-4">
+                        				<h:selectBooleanCheckbox styleClass="limpaCkBox" id="checkbox1" value="#{beanUniao.iniciaDownload}" />
+										<label for="pdf:checkbox1">
+											Iniciar download automaticamente
+										</label>
+									</div>
                     			</div>
-					
-								<div class="text-center">
-									<h:commandLink styleClass="btn btn-default bot" action="#{beanArquivo.resetaBean}" value="Cancelar" />
-									<h:commandButton styleClass="btn btn-success bot botLine" action="#{beanArquivo.atualizar}" value="Atualizar" />
-								</div>
-					
-							</h:form>
-			         	</div>
-			         	
-						<div class="panel-body form-horizontal">
-				           	<div class="col-sm-12">
-								<legend>Realizar upload</legend>
-							</div>
-							
-							<div class="mensagem col-sm-12 form-group">
-								<h:messages for="inputFile" showDetail="true" errorClass="alert alert-danger" fatalClass="alert alert-info" infoClass="alert alert-success" warnClass="alert alert-warning" />
-							</div>
-				
-							<h:form id="up" enctype="multipart/form-data">
-								<div class="col-sm-1"></div>
-								<div class="form-group col-sm-11">
-									<div class="input-group">
-										<span class="input-group-btn">
-											<span class="btn btn-default btn-file">
-												Buscar...
-												<h:inputFile id="inputFile" value="#{beanArquivo.arquivo}">
-													<f:passThroughAttribute name="accept" value="application/pdf" />
-												</h:inputFile>
-											</span>
-										</span>
-										<input id="urlname" type="text" class="form-control" readonly="true" placeholder="Nenhum arquivo selecionado"/>
-									</div>
-    				          	</div>
-    				          	
+								
 								<div class="form-group">
-           				 			<label for="senha" class="col-sm-3 control-label">Acesso</label>
-           						    <div class="col-sm-5">
-           						    	<h:selectOneMenu styleClass="form-control" value="#{beanArquivo.arquivoLogico.acesso}">
-                       						<f:selectItem itemLabel="Restrito" itemValue="R" />
-                       						<f:selectItem itemLabel="Público" itemValue="P" />
-                       					</h:selectOneMenu>
-					                </div>
-									<div class="col-sm-3">
-										<h:commandButton styleClass="btn btn-success bot pull-right" action="#{beanArquivo.carregaArquivo}" value="Salvar" />
+									<label for="acesso" class="col-sm-2 control-label">Acesso</label>
+                        			<div class="col-sm-3">
+                                    	<h:selectOneMenu styleClass="form-control" value="#{beanUniao.acessoArquivoGerado}">
+                                   			<f:selectItem itemLabel="Restrito" itemValue="R" />
+                                   			<f:selectItem itemLabel="Público" itemValue="P" />
+                                    	</h:selectOneMenu>
 									</div>
-            			        </div>	
+									<div class="col-sm-2"></div>
+                        			<div class="checkbox checkbox-primary col-md-4">
+                        				<h:selectBooleanCheckbox styleClass="limpaCkBox" id="checkbox2" value="#{beanUniao.salvaNoServidor}" />
+										<label for="pdf:checkbox2">
+											Salvar arquivo gerado no servidor
+										</label>
+									</div>
+                    			</div>
+                    			
+                    			<div class="text-center">
+									<h:commandButton styleClass="btn btn-success botG" value="Gerar arquivo" />
+								</div>
+                    			
 							</h:form>
-           			     </div>
-          			</div>            
-      			</div> <!-- / Formulario -->
+					
+                		</div>
+            		</div>            
+        		</div> <!-- / Formulario -->
         
-				<!-- Tabela -->
+				<!-- Tabela 1 -->
 				<div class="col-md-6">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
@@ -160,20 +131,14 @@
 									<th class="col-md-3 text-center"></th>
 								</tr>
 							</thead>
-							<ui:repeat var="arquivo" value="#{beanArquivo.arquivos}">
+							<ui:repeat var="arquivo" value="#{beanUniao.arquivosDisponiveis}">
 								<tbody>
 									<tr>
 										<td>#{arquivo.nome}</td>
 										<td class="text-center">
 											<h:form>
-												<h:commandLink action="#{beanArquivo.editar(arquivo.idArquivo)}">
-													<i class="fa fa-pencil" aria-hidden="true"></i>
-												</h:commandLink>
-												<h:commandLink action="#{beanArquivo.download(arquivo.nome, arquivo.caminho)}">
-													<i class="fa fa-cloud-download icon-line" aria-hidden="true"></i>
-												</h:commandLink>
-												<h:commandLink action="#{beanArquivo.excluir(arquivo.idArquivo)}">
-													<i class="fa fa-trash-o icon-line" aria-hidden="true"></i>
+												<h:commandLink>
+													<i class="fa fa-arrow-right icon-line" aria-hidden="true"></i>
 												</h:commandLink>
 												<h:outputLabel rendered="#{arquivo.getAcesso().equals('R')}" styleClass="fa fa-user icon-line-u" />
 												<h:outputLabel rendered="#{arquivo.getAcesso().equals('P')}" styleClass="fa fa-users icon-line" />
@@ -186,15 +151,60 @@
 					</div>
 				</div>
 				
+				<!-- Tabela 2 -->
+				<div class="col-md-6">
+					<div class="panel panel-secondary">
+						<div class="panel-heading">
+							<h3 class="panel-title">Arquivos selecionados
+								<div class="pull-right">
+									<span class="clickable filter" data-toggle="tooltip" title="" data-container="body" data-original-title="Clique para pesquisar">
+										<i class="glyphicon glyphicon-filter"></i>
+									</span>
+								</div>
+							</h3>
+						</div>
+						<div class="panel-body" style="display: none;">
+							<input class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Digite o texto aqui" type="text" />
+						</div>
+						
+						<table class="table table-hover" id="dev-table">
+							<thead>
+								<tr>
+									<th class="col-md-9">Arquivo</th>
+									<th class="col-md-3 text-center"></th>
+								</tr>
+							</thead>
+							<ui:repeat var="arquivo" value="#{beanUniao.arquivosSelecionados}">
+								<tbody>
+									<tr>
+										<td>#{arquivo.nome}</td>
+										<td class="text-center">
+											<h:form>
+												<h:commandLink>
+													<i class="fa fa-arrow-left icon-line" aria-hidden="true"></i>
+												</h:commandLink>
+												<h:commandLink>
+													<i class="fa fa-arrow-up icon-line" aria-hidden="true"></i>
+												</h:commandLink>
+												<h:commandLink>
+													<i class="fa fa-arrow-down icon-line" aria-hidden="true"></i>
+												</h:commandLink>
+												<h:outputLabel rendered="#{arquivo.getAcesso().equals('R')}" styleClass="fa fa-user icon-line-u" />
+												<h:outputLabel rendered="#{arquivo.getAcesso().equals('P')}" styleClass="fa fa-users icon-line" />
+											</h:form>
+										</td>
+									</tr>
+								</tbody>
+							</ui:repeat>
+						</table>
+					</div>
+				</div>
+				
+				
+				
 			</div>
 		</div>
 
-
-<script type="text/javascript">  
-	document.getElementById("up:inputFile").onchange = function () { 
-	document.getElementById("urlname").value = this.value.split(/(\\|\/)/g).pop();
-	};
-</script> 
 
 <script type="text/javascript">
 		/**

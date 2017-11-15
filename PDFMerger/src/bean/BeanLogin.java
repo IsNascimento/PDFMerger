@@ -59,7 +59,7 @@ public class BeanLogin {
 			return "/login.xhtml";
 		}
 
-		return "/cadastro.xhtml?faces-redirect=true";
+		return "/uniao.xhtml?faces-redirect=true";
 	}
 
 	public String sair() {

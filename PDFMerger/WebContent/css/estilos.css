@@ -2,6 +2,10 @@
 	min-width: 100px;
 }
 
+.botG {
+	min-width: 150px;
+}
+
 .botLine {
 	margin-left: 5px;
 }
@@ -30,3 +34,21 @@
   border: 0;
   border-bottom: 1px solid #e5e5e5;
 }
+
+.panel-secondary {
+  border-color: #67ab51;
+}
+.panel-secondary > .panel-heading {
+  color: #fff;
+  background-color: #67ab51;
+  border-color: #67ab51;
+}
+.panel-secondary > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #67ab51;
+}
+.panel-secondary > .panel-heading .badge {
+  color: #67ab51;
+  background-color: #fff;
+}
+.panel-secondary > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #67ab51;
