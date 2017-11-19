@@ -3,6 +3,7 @@
 	<persistence-unit name="PDFMerger" transaction-type="RESOURCE_LOCAL">
 		<class>model.Usuario</class>
 		<class>model.Perfil</class>
+		<class>model.Arquivo</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>

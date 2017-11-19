@@ -1,25 +1,27 @@
 package bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import dao.ArquivoDAO;
 import model.Arquivo;
 import model.Usuario;
+import utils.Mensagem;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class BeanUniao {
 	
 	private String nomeArquivoGerado;
 	private String acessoArquivoGerado;
 	private boolean salvaNoServidor = true;
 	private boolean iniciaDownload = true;
-	private List<Arquivo> arquivosSelecionados;
+	private List<Arquivo> arquivosSelecionados = new ArrayList<Arquivo>();
 	private Arquivo arquivoGerado;
 	private ArquivoDAO arquivoDAO = new ArquivoDAO();
 	
@@ -74,6 +76,44 @@ public class BeanUniao {
 	public List<Arquivo> getArquivosDisponiveis() {
 		Usuario usuarioLogado = (Usuario)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
 		return arquivoDAO.listaParaUsuario(usuarioLogado.getIdUsuario());
+	}
+	
+	public void adicionaArquivo(int idArquivo) {
+		try {
+			this.arquivosSelecionados.add(arquivoDAO.busca(idArquivo));
+		} catch (Exception e) {
+			FacesContext contexto = FacesContext.getCurrentInstance();
+			contexto.addMessage(null , new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_AO_MANIPULAR_ARQUIVO));
+		}
+	}
+	
+	public void removeArquivo(int index) {
+		try {
+			this.arquivosSelecionados.remove(index);
+		} catch (Exception e) {
+			FacesContext contexto = FacesContext.getCurrentInstance();
+			contexto.addMessage(null , new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_AO_MANIPULAR_ARQUIVO));
+		}
+	}
+	
+	public void reordenaArquivoSobe(int index) {
+		try {
+			Arquivo arquivo = this.arquivosSelecionados.remove(index);
+			arquivosSelecionados.add((index - 1), arquivo);
+		} catch (Exception e) {
+			FacesContext contexto = FacesContext.getCurrentInstance();
+			contexto.addMessage(null , new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_AO_MANIPULAR_ARQUIVO));
+		}
+	}
+	
+	public void reordenaArquivoDesce(int index) {
+		try {
+			Arquivo arquivo = this.arquivosSelecionados.remove(index);
+			arquivosSelecionados.add((index + 1), arquivo);
+		} catch (Exception e) {
+			FacesContext contexto = FacesContext.getCurrentInstance();
+			contexto.addMessage(null , new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_AO_MANIPULAR_ARQUIVO));
+		}
 	}
 	
 }

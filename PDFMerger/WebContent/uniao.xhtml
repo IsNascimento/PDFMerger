@@ -137,8 +137,8 @@
 										<td>#{arquivo.nome}</td>
 										<td class="text-center">
 											<h:form>
-												<h:commandLink>
-													<i class="fa fa-arrow-right icon-line" aria-hidden="true"></i>
+												<h:commandLink action="#{beanUniao.adicionaArquivo(arquivo.idArquivo)}">
+													<i class="fa fa-plus icon-line" aria-hidden="true"></i>
 												</h:commandLink>
 												<h:outputLabel rendered="#{arquivo.getAcesso().equals('R')}" styleClass="fa fa-user icon-line-u" />
 												<h:outputLabel rendered="#{arquivo.getAcesso().equals('P')}" styleClass="fa fa-users icon-line" />
@@ -174,20 +174,20 @@
 									<th class="col-md-3 text-center"></th>
 								</tr>
 							</thead>
-							<ui:repeat var="arquivo" value="#{beanUniao.arquivosSelecionados}">
+							<ui:repeat var="arquivo" value="#{beanUniao.arquivosSelecionados}" varStatus="linha">
 								<tbody>
 									<tr>
 										<td>#{arquivo.nome}</td>
 										<td class="text-center">
 											<h:form>
-												<h:commandLink>
-													<i class="fa fa-arrow-left icon-line" aria-hidden="true"></i>
-												</h:commandLink>
-												<h:commandLink>
+												<h:commandLink action="#{beanUniao.reordenaArquivoSobe(linha.index)}">
 													<i class="fa fa-arrow-up icon-line" aria-hidden="true"></i>
 												</h:commandLink>
-												<h:commandLink>
+												<h:commandLink action="#{beanUniao.reordenaArquivoDesce(linha.index)}">
 													<i class="fa fa-arrow-down icon-line" aria-hidden="true"></i>
+												</h:commandLink>
+												<h:commandLink action="#{beanUniao.removeArquivo(linha.index)}">
+													<i class="fa fa-minus icon-line" aria-hidden="true"></i>
 												</h:commandLink>
 												<h:outputLabel rendered="#{arquivo.getAcesso().equals('R')}" styleClass="fa fa-user icon-line-u" />
 												<h:outputLabel rendered="#{arquivo.getAcesso().equals('P')}" styleClass="fa fa-users icon-line" />
