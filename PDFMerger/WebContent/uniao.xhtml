@@ -164,10 +164,10 @@
 							</h3>
 						</div>
 						<div class="panel-body" style="display: none;">
-							<input class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Digite o texto aqui" type="text" />
+							<input class="form-control" id="dev-table-filter2" data-action="filter" data-filters="#dev-table2" placeholder="Digite o texto aqui" type="text" />
 						</div>
 						
-						<table class="table table-hover" id="dev-table">
+						<table class="table table-hover" id="dev-table2">
 							<thead>
 								<tr>
 									<th class="col-md-9">Arquivo</th>
@@ -239,7 +239,7 @@
 						})
 						if($target.find('tbody tr:visible').size() === 0) {
 							var col_count = $target.find('tr').first().find('td').size();
-							var no_results = $('<tr class="filterTable_no_results"><td colspan="'+col_count+'">No results found</td></tr>')
+							var no_results = $('<tr class="filterTable_no_results"><td colspan="'+col_count+'">Nenhum resultado encontrado</td></tr>')
 							$target.find('tbody').append(no_results);
 						}
 					}
