@@ -23,6 +23,7 @@ import javax.servlet.http.Part;
 import dao.ArquivoDAO;
 import model.Arquivo;
 import model.Usuario;
+import utils.ArquivoUtils;
 import utils.Mensagem;
 import utils.StringUtils;
 
@@ -189,25 +190,8 @@ public class BeanArquivo {
 		}
 	}
 	
-	public void download(String nomeDoArquivo, String caminho) throws IOException {
-		FacesContext context = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = context.getExternalContext();
-		
-		externalContext.responseReset();
-		externalContext.setResponseContentType("pdf");
-		externalContext.setResponseHeader("Content-Disposition", "attachment;filename=" + StringUtils.addPdf(StringUtils.trocaEspaco(nomeDoArquivo)));
-		
-		FileInputStream inputStream = new FileInputStream(new File(StringUtils.addPdf(caminho)));
-		OutputStream outPutStream = externalContext.getResponseOutputStream();
-		
-		byte[] buffer = new byte[1024];
-		int length;
-		while((length = inputStream.read(buffer)) > 0) {
-			outPutStream.write(buffer, 0, length);
-		}
-		
-		inputStream.close();
-		context.responseComplete();
+	public void download(String nomeDoArquivo, String caminho) {
+		ArquivoUtils.download(nomeDoArquivo, caminho);
 	}
 	
 	public void resetaBean() {

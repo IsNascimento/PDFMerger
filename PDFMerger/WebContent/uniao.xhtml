@@ -99,7 +99,8 @@
                     			</div>
                     			
                     			<div class="text-center">
-									<h:commandButton styleClass="btn btn-success botG" value="Gerar arquivo" />
+                    				<h:commandLink styleClass="btn btn-default bot" value="Limpar" action="#{beanUniao.resetaBean}" />
+									<h:commandButton styleClass="btn btn-success bot botLine" value="Gerar arquivo" action="#{beanUniao.geraArquivoUnido}" />
 								</div>
                     			
 							</h:form>
