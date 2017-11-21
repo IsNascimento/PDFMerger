@@ -1,6 +1,7 @@
 package bean;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -118,7 +119,14 @@ public class BeanUsuario {
 	}
 	
 	public List<Usuario> getUsuarios() {
-		return usuarioDAO.listar();
+		Usuario usuarioLogado = (Usuario)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
+		if(usuarioLogado.getPerfil().equals("Administrador")) {
+			return usuarioDAO.listar();
+		} else {
+			List usuario = new ArrayList();
+			usuario.add(usuarioDAO.busca(usuarioLogado.getIdUsuario()));
+			return usuario;
+		}
 	}
 	
 	public String getTitulo() {
@@ -159,6 +167,11 @@ public class BeanUsuario {
 	
 	public void cadastrar() {
 		FacesContext contexto = FacesContext.getCurrentInstance();
+		Usuario usuarioLogado = (Usuario)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
+		if (usuarioLogado.getPerfil().equals("Usuário comum")) {
+			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.NAO_CADASTRA_USUARIO));
+			return;
+		}
 		if (senha.equals(confirmaSenha)) {
 			if (Validador.nome(nome)) {
 				if (Validador.email(email)) {
@@ -266,11 +279,15 @@ public class BeanUsuario {
 	
 	public void excluir(int id) {
 		FacesContext contexto = FacesContext.getCurrentInstance();
-		try {
-			usuarioDAO.exclui(id);
-			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, Mensagem.SUCESSO, ""));
-		} catch (Exception e) {
-			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_NO_SISTEMA));
+		if(id == 1) {
+			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.NAO_DELETA_ADMIN));
+		} else {
+			try {
+				usuarioDAO.exclui(id);
+				contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, Mensagem.SUCESSO, ""));
+			} catch (Exception e) {
+				contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_NO_SISTEMA));
+			}
 		}
 	}
 

@@ -74,8 +74,11 @@
                         			</div>
 									<label for="perfil" class="col-sm-1 control-label">Perfil</label>
                         			<div class="col-sm-3">
-                                    	<h:selectOneMenu styleClass="form-control" value="#{beanUsuario.perfil}" biding="#{beanUsuario.perfil}">
+                                    	<h:selectOneMenu rendered="#{'Administrador'.equals(usuarioLogado.perfil)}" styleClass="form-control" value="#{beanUsuario.perfil}" biding="#{beanUsuario.perfil}">
                                    			<f:selectItem itemLabel="Administrador" itemValue="Administrador" />
+                                   			<f:selectItem itemLabel="Usuário comum" itemValue="Usuário comum" />
+                                    	</h:selectOneMenu>
+                                    	<h:selectOneMenu rendered="#{'Usuário comum'.equals(usuarioLogado.perfil)}" styleClass="form-control" value="#{beanUsuario.perfil}" biding="#{beanUsuario.perfil}">
                                    			<f:selectItem itemLabel="Usuário comum" itemValue="Usuário comum" />
                                     	</h:selectOneMenu>
 									</div>

@@ -57,7 +57,7 @@ public class UsuarioDAO {
 	
 	@SuppressWarnings("unchecked")
 	public List<Usuario> listar() {
-		Query busca = em.createQuery("SELECT u FROM Usuario u");
+		Query busca = em.createQuery("SELECT u FROM Usuario u ORDER BY u.nome ASC");
 		return busca.getResultList();
 	}
 	
