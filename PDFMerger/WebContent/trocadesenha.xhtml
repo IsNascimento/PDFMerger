@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	
+	<h:head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+		<title>PDF Merger</title>
+  
+		<!-- Bootstrap CSS -->
+		<link href="css/bootstrap.min.css" rel="stylesheet" />
+		<link href="css/estilos.css" rel="stylesheet" />
+		<link href="css/ckbox.css" rel="stylesheet" />
+		<link href="css/nav.css" rel="stylesheet" />
+		<link href="css/mensagem.css" rel="stylesheet" />
+		<link href="css/font-awesome.min.css" rel="stylesheet" />
+		
+		<script src="js/TabelaJs.js"></script>
+	</h:head>
+
+	<h:body>
+		
+		<h:panelGroup layout="block" rendered="#{usuarioTrocaSenha.idUsuario > 0}">
+		<div class="container topo">
+			<div class="row">
+        		<div class="col-sm-12">
+            		<div class="panel panel-default cor-fundo">
+                		<div class="panel-body form-horizontal">
+                			<div class="mensagem col-sm-12">
+                				<h:messages showDetail="true" errorClass="alert alert-danger" fatalClass="alert alert-info" infoClass="alert alert-success" warnClass="alert alert-warning" />
+                    		</div>
+                    		<div class="col-sm-12">
+                    			<legend>Troca de senha solicitada</legend>
+							</div>
+							<h:form class="limpa">
+								
+								<div class="form-group">
+                        			<label for="senhaAtual" class="col-sm-4 control-label">Senha atual</label>
+                        			<div class="col-sm-4">
+                            			<h:inputSecret styleClass="form-control limpaCampo" value="#{beanTrocaDeSenha.senhaAtual}">
+                            				<f:passThroughAttribute name="autocomplete" value="off" />
+                            				<f:passThroughAttribute name="required" value="" />
+                            			</h:inputSecret>
+                        			</div>
+                        			<div class="col-sm-4"></div>
+                    			</div>
+                    			
+                    			<div class="form-group">
+                        			<label for="novaSenha" class="col-sm-4 control-label">Nova senha</label>
+                        			<div class="col-sm-4">
+                            			<h:inputSecret styleClass="form-control limpaCampo" value="#{beanTrocaDeSenha.novaSenha}">
+                            				<f:passThroughAttribute name="autocomplete" value="off" />
+                            				<f:passThroughAttribute name="required" value="" />
+                            			</h:inputSecret>
+                        			</div>
+                        			<div class="col-sm-4"></div>
+                    			</div>
+                    			
+                    			<div class="form-group">
+                        			<label for="confirmaNovaSenha" class="col-sm-4 control-label">Confirme a nova senha</label>
+                        			<div class="col-sm-4">
+                            			<h:inputSecret styleClass="form-control limpaCampo" value="#{beanTrocaDeSenha.confirmaNovaSenha}">
+                            				<f:passThroughAttribute name="autocomplete" value="off" />
+                            				<f:passThroughAttribute name="required" value="" />
+                            			</h:inputSecret>
+                        			</div>
+                        			<div class="col-sm-4"></div>
+                    			</div>
+								
+                    			
+                    			<div class="text-center">
+									<h:commandButton styleClass="btn btn-success botG" value="Atualizar senha" action="#{beanTrocaDeSenha.atualizaSenha}" />
+								</div>
+                    			
+							</h:form>
+					
+                		</div>
+            		</div>            
+        		</div>
+				
+			</div>
+		</div>
+		</h:panelGroup>
+
+		<!-- jQuery (necessario para os plugins Javascript do Bootstrap) -->
+		<script src="js/jquery.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+	</h:body>
+
+</html>
