@@ -21,6 +21,7 @@ public class Mensagem {
 	public static final String NAO_DELETA_ADMIN = "O usuário administrador padrão não pode ser excluído.";
 	public static final String NAO_CADASTRA_USUARIO = "Apenas usuários administradores podem cadastrar outros usuários.";
 	
+	public static final String SOMENTE_USUARIO_CRIADOR_TEM_PERMISSAO = "Somente o usuário que enviou o arquivo pode realizar essa ação.";
 	public static final String NENHUM_ARQUIVO_SELECIONADO = "Nenhum arquivo selecionado.";
 	public static final String ERRO_AO_MANIPULAR_ARQUIVO = "Ocorreu um ao manipular o arquivo no servidor.";
 	public static final String ARQUIVO_JA_EXISTE = "Já existe um arquivo com o mesmo nome.";

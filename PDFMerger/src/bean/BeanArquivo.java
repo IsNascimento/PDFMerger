@@ -131,11 +131,18 @@ public class BeanArquivo {
 	
 	public void editar(int idArquivo) {
 		Arquivo arquivo = arquivoDAO.busca(idArquivo);
-		this.idArquivo = arquivo.getIdArquivo();
-		this.nome = arquivo.getNome();
-		this.idUsuario = arquivo.getIdUsuario();
-		this.caminho = arquivo.getCaminho();
-		this.acesso = arquivo.getAcesso();
+		Usuario usuarioLogado = (Usuario)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
+		
+		if(usuarioLogado.getIdUsuario() == arquivo.getIdUsuario()) {
+			this.idArquivo = arquivo.getIdArquivo();
+			this.nome = arquivo.getNome();
+			this.idUsuario = arquivo.getIdUsuario();
+			this.caminho = arquivo.getCaminho();
+			this.acesso = arquivo.getAcesso();
+		} else {
+			FacesContext contexto = FacesContext.getCurrentInstance();
+			contexto.addMessage("editar", new FacesMessage(FacesMessage.SEVERITY_WARN, Mensagem.INFO, Mensagem.SOMENTE_USUARIO_CRIADOR_TEM_PERMISSAO));
+		}
 	}
 	
 	public void atualizar() {
@@ -175,14 +182,20 @@ public class BeanArquivo {
 	
 	public void excluir(int idArquivo) {
 		FacesContext context = FacesContext.getCurrentInstance();
+		Usuario usuarioLogado = (Usuario)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
+		
 		try {
 			Arquivo arquivo = arquivoDAO.busca(idArquivo);
-			File arquivoFisico = new File(arquivo.getCaminho());
-			if(arquivoFisico.delete()) {
-				arquivoDAO.exclui(idArquivo);
-				context.addMessage("editar", new FacesMessage(FacesMessage.SEVERITY_INFO, Mensagem.SUCESSO, ""));
+			if(usuarioLogado.getIdUsuario() == arquivo.getIdUsuario()) {
+				File arquivoFisico = new File(arquivo.getCaminho());
+				if(arquivoFisico.delete()) {
+					arquivoDAO.exclui(idArquivo);
+					context.addMessage("editar", new FacesMessage(FacesMessage.SEVERITY_INFO, Mensagem.SUCESSO, ""));
+				} else {
+					context.addMessage("editar", new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_AO_MANIPULAR_ARQUIVO));
+				}
 			} else {
-				context.addMessage("editar", new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_AO_MANIPULAR_ARQUIVO));
+				context.addMessage("editar", new FacesMessage(FacesMessage.SEVERITY_WARN, Mensagem.INFO, Mensagem.SOMENTE_USUARIO_CRIADOR_TEM_PERMISSAO));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
