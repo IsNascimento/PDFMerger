@@ -8,18 +8,21 @@ public class Mensagem {
 	public static final String ALERTA = "Alerta!";
 	
 	public static final String SENHA_NAO_CONFERE = "Os campos senha e confirme sua senha não conferem.";
+	public static final String NOVA_SENHA_NAO_CONFERE = "Os campos nova senha e confirme a nova senha não conferem.";
 	public static final String ERRO_NO_SISTEMA = "Ocorreu um erro no sistema.";
 	public static final String LOGIN_JA_EXISTE = "O login informado já está cadastrado.";
 	public static final String EMAIL_JA_EXISTE = "O e-mail informado já está cadastrado.";
 	public static final String USUARIO_NAO_CADASTRADO = "Usuário ou senha incorreta.";
 	public static final String LOGIN_BLOQUEADO = "Este login está bloqueado.";
 	public static final String SENHA_INCORRETA = "Usuário ou senha incorreta.";
+	public static final String NOVA_SENHA_INCORRETA = "Senha atual incorreta.";
 	public static final String NOME_INVALIDO = "O campo nome não pode conter números ou caracteres especiais.";
 	public static final String EMAIL_INVALIDO = "O email informado é inválido. ";
 	public static final String LOGIN_INVALIDO = "O login informado é inválido.";
 	public static final String SENHA_INVALIDA = "A senha deve conter no mínimo seis caracteres.";
 	public static final String NAO_DELETA_ADMIN = "O usuário administrador padrão não pode ser excluído.";
 	public static final String NAO_CADASTRA_USUARIO = "Apenas usuários administradores podem cadastrar outros usuários.";
+	public static final String SENHA_IGUAL_NOVA_SENHA = "A nova senha deve ser diferente a da atual.";
 	
 	public static final String SOMENTE_USUARIO_CRIADOR_TEM_PERMISSAO = "Somente o usuário que enviou o arquivo pode realizar essa ação.";
 	public static final String NENHUM_ARQUIVO_SELECIONADO = "Nenhum arquivo selecionado.";

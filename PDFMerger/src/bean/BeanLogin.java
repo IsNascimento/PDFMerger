@@ -48,8 +48,18 @@ public class BeanLogin {
 				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.LOGIN_BLOQUEADO));
 				return "login";
 			} else {
-				request.login(login, senha);
-				externalContext.getSessionMap().put("usuarioLogado", u);
+				if(senha.equals(u.getSenha())) {
+					if(u.getTrocaSenha().equals("S")) {
+						externalContext.getSessionMap().put("usuarioTrocaSenha", u);
+						return "/trocadesenha.xhtml?faces-redirect=true";
+					} else {
+						request.login(login, senha);
+						externalContext.getSessionMap().put("usuarioLogado", u);
+					}
+				} else {
+					context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.SENHA_INCORRETA));
+					return "/login.xhtml";
+				}
 			}
 		} catch (NullPointerException e) {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.USUARIO_NAO_CADASTRADO));
@@ -67,7 +77,7 @@ public class BeanLogin {
 		ExternalContext externalContext = context.getExternalContext();
 		externalContext.invalidateSession();
 		
-		return "/login.xhtml?faces-redirect=true";
+		return "/uniao.xhtml?faces-redirect=true";
 	}
 
 }

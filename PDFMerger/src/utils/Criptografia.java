@@ -15,6 +15,7 @@ public static String criptografa(String string) {
 			retorno = hash.toString(16);
 		} catch(Exception e) {
 			System.out.println("Erro ao criptografar senha");
+			e.printStackTrace();
 		}
 		return retorno;
 	}

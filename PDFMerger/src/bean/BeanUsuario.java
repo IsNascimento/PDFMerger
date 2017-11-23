@@ -168,10 +168,6 @@ public class BeanUsuario {
 	public void cadastrar() {
 		FacesContext contexto = FacesContext.getCurrentInstance();
 		Usuario usuarioLogado = (Usuario)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
-		if (usuarioLogado.getPerfil().equals("Usuário comum")) {
-			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.NAO_CADASTRA_USUARIO));
-			return;
-		}
 		if (senha.equals(confirmaSenha)) {
 			if (Validador.nome(nome)) {
 				if (Validador.email(email)) {
@@ -188,6 +184,10 @@ public class BeanUsuario {
 								this.editar(this.idUsuario);
 							}
 						} else if (this.idUsuario == 0) {//Novo cadastro
+							if (usuarioLogado.getPerfil().equals("Usuário comum")) {
+								contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.NAO_CADASTRA_USUARIO));
+								return;
+							}
 							if(Validador.senha(senha)) {
 								try {
 									usuarioDAO.cadastrar(nome, email, login, senha, perfil, trocaSenha, bloqueado);
@@ -249,8 +249,7 @@ public class BeanUsuario {
 			if (this.idUsuario != 0) {
 				this.editar(this.idUsuario);
 			}
-			contexto.addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.SENHA_NAO_CONFERE));
+			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.SENHA_NAO_CONFERE));
 		}
 	}
 	
