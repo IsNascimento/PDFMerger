@@ -8,8 +8,11 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>Faces Servlet</servlet-name>
-    <url-pattern>/faces/*</url-pattern>
+    <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
+  <welcome-file-list>
+  	<welcome-file>uniao.xhtml</welcome-file>
+  </welcome-file-list>
   <context-param>
     <description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>
     <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
@@ -40,9 +43,9 @@
     <security-constraint>
   	<web-resource-collection>
   		<web-resource-name>wrcol</web-resource-name>
-  		<url-pattern>/faces/cadastro.xhtml</url-pattern>
-  		<url-pattern>/faces/arquivos.xhtml</url-pattern>
-  		<url-pattern>/faces/uniao.xhtml</url-pattern>
+  		<url-pattern>/cadastro.xhtml</url-pattern>
+  		<url-pattern>/arquivos.xhtml</url-pattern>
+  		<url-pattern>/uniao.xhtml</url-pattern>
   	</web-resource-collection>
   	<auth-constraint>
   		<role-name>*</role-name>
@@ -52,8 +55,8 @@
   <login-config>
   	<auth-method>FORM</auth-method>
   	<form-login-config>
-  		<form-login-page>/faces/login.xhtml</form-login-page>
-  		<form-error-page>/faces/login.xhtml</form-error-page>
+  		<form-login-page>/login.xhtml</form-login-page>
+  		<form-error-page>/login.xhtml</form-error-page>
   	</form-login-config>
   </login-config>
   

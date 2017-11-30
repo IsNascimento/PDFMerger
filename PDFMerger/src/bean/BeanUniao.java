@@ -1,7 +1,5 @@
 package bean;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -120,6 +118,7 @@ public class BeanUniao {
 			this.arquivosSelecionados.add(arquivoDAO.busca(idArquivo));
 		} catch (Exception e) {
 			FacesContext contexto = FacesContext.getCurrentInstance();
+			e.printStackTrace();
 			contexto.addMessage(null , new FacesMessage(FacesMessage.SEVERITY_ERROR, Mensagem.ERRO, Mensagem.ERRO_AO_MANIPULAR_ARQUIVO));
 		}
 	}
